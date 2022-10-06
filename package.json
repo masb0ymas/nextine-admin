@@ -1,7 +1,7 @@
 {
-  "name": "mantine-next-template",
-  "version": "1.0.0",
-  "private": true,
+  "name": "nextine-admin",
+  "version": "0.0.1",
+  "description": "Mantine Next Template",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -17,6 +17,12 @@
     "test": "npm run prettier:check && npm run lint && npm run typecheck && npm run jest",
     "storybook": "start-storybook -p 7001",
     "storybook:build": "build-storybook"
+  },
+  "author": "masb0ymas",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">= 14.x"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
