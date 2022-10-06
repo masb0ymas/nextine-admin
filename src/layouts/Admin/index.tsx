@@ -14,7 +14,8 @@ import {
 import { BRAND } from 'config/env'
 import { useState } from 'react'
 import FooterLayout from './Footer'
-import { NavbarMenus } from './NavbarMenu'
+import { NavbarMenus } from './Sidebar/NavbarMenu'
+import UserFooter from './Sidebar/UserFooter'
 
 const useStyles = createStyles((theme, _params, _getRef) => ({
   version: {
@@ -56,7 +57,9 @@ function AdminLayout() {
             <NavbarMenus />
           </Navbar.Section>
 
-          <Navbar.Section>{/* Footer with user */}</Navbar.Section>
+          <Navbar.Section>
+            <UserFooter />
+          </Navbar.Section>
         </Navbar>
       }
       header={
