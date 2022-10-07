@@ -1,11 +1,18 @@
 import { ActionIcon, Group, useMantineColorScheme } from '@mantine/core'
 import { IconSun, IconMoonStars } from '@tabler/icons'
+import { CSSProperties } from 'react'
 
-export function ColorSchemeToggle() {
+interface ColorSchemeToggleProps {
+  styleGroup: CSSProperties
+}
+
+export function ColorSchemeToggle({
+  styleGroup,
+}: Partial<ColorSchemeToggleProps>) {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
 
   return (
-    <Group position="center" mt="xl">
+    <Group position="center" mt="xl" style={styleGroup}>
       <ActionIcon
         onClick={() => toggleColorScheme()}
         size="xl"
