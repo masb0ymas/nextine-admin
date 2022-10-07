@@ -51,9 +51,12 @@ function Login() {
             <Anchor<'a'> size="sm">Forgot password?</Anchor>
           </Link>
         </Group>
-        <Button fullWidth mt="xl">
-          Sign in
-        </Button>
+
+        <Link href="/" passHref>
+          <Button fullWidth mt="xl">
+            Sign in
+          </Button>
+        </Link>
       </Paper>
 
       <ColorSchemeToggle />
