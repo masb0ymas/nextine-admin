@@ -1,3 +1,3 @@
-import HomePage from 'views/Welcome'
+import AdminLayout from 'layouts/Admin'
 
-export default HomePage
+export default AdminLayout

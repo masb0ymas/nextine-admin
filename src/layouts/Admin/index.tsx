@@ -1,3 +1,4 @@
+import { ColorSchemeToggle } from '@core/components/ColorSchemeToggle/ColorSchemeToggle'
 import {
   AppShell,
   Burger,
@@ -12,11 +13,13 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { BRAND } from 'config/env'
-import { useState } from 'react'
+import NotFound from 'layouts/Error/NotFound'
+import React, { useState } from 'react'
 import FooterLayout from './Footer'
 import { NavbarMenus } from './Sidebar/NavbarMenu'
 import UserFooter from './Sidebar/UserFooter'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = createStyles((theme, _params, _getRef) => ({
   version: {
     backgroundColor: theme.fn.lighten(
@@ -26,6 +29,13 @@ const useStyles = createStyles((theme, _params, _getRef) => ({
     ),
     color: theme.white,
     fontWeight: 700,
+  },
+
+  inner: {
+    display: 'flex',
+    alignItems: 'center',
+    height: '100%',
+    justifyContent: 'space-between',
   },
 }))
 
@@ -64,9 +74,7 @@ function AdminLayout() {
       }
       header={
         <Header height={70} p="md">
-          <div
-            style={{ display: 'flex', alignItems: 'center', height: '100%' }}
-          >
+          <div className={classes.inner}>
             <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
               <Burger
                 opened={opened}
@@ -81,12 +89,16 @@ function AdminLayout() {
               <Text style={{ fontSize: 22, fontWeight: 600 }}>{BRAND}</Text>
               <Code className={classes.version}>v0.0.1</Code>
             </Group>
+
+            <Group>
+              <ColorSchemeToggle styleGroup={{ marginTop: 0 }} />
+            </Group>
           </div>
         </Header>
       }
       footer={<FooterLayout />}
     >
-      <Text>Resize app to see responsive navbar in action</Text>
+      <NotFound />
     </AppShell>
   )
 }

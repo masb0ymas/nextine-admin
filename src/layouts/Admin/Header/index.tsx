@@ -1,3 +1,4 @@
+import { ColorSchemeToggle } from '@core/components/ColorSchemeToggle/ColorSchemeToggle'
 import {
   Burger,
   Code,
@@ -22,6 +23,13 @@ const useStyles = createStyles((theme, _params, _getRef) => ({
     color: theme.white,
     fontWeight: 700,
   },
+
+  inner: {
+    display: 'flex',
+    alignItems: 'center',
+    height: '100%',
+    justifyContent: 'space-between',
+  },
 }))
 
 function HeaderLayout() {
@@ -32,7 +40,7 @@ function HeaderLayout() {
 
   return (
     <Header height={70} p="md">
-      <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+      <div className={classes.inner}>
         <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
           <Burger
             opened={opened}
@@ -46,6 +54,10 @@ function HeaderLayout() {
         <Group position="apart" spacing="lg">
           <Text style={{ fontSize: 18, fontWeight: 600 }}>{BRAND}</Text>
           <Code className={classes.version}>v3.1.2</Code>
+        </Group>
+
+        <Group>
+          <ColorSchemeToggle />
         </Group>
       </div>
     </Header>

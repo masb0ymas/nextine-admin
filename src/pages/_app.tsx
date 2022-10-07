@@ -4,6 +4,7 @@ import {
   MantineProvider,
 } from '@mantine/core'
 import { NotificationsProvider } from '@mantine/notifications'
+import { BRAND } from 'config/env'
 import { getCookie, setCookie } from 'cookies-next'
 import { GetServerSidePropsContext } from 'next'
 import { AppProps } from 'next/app'
@@ -26,7 +27,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   return (
     <>
       <Head>
-        <title>Mantine next example</title>
+        <title>{BRAND}</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"

@@ -1,56 +1,106 @@
-import { Group, Text, ThemeIcon, UnstyledButton } from '@mantine/core'
-import {
-  IconAlertCircle,
-  IconDatabase,
-  IconGitPullRequest,
-  IconMessages,
-} from '@tabler/icons'
+import { createStyles, NavLink } from '@mantine/core'
+import { IconHome, IconSettings } from '@tabler/icons'
+import _ from 'lodash'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React from 'react'
 
-interface MainLinkProps {
+interface LinkProps {
   icon: React.ReactNode
   color: string
   label: string
+  link?: string
 }
 
-function MainLink({ icon, color, label }: MainLinkProps) {
+interface MainLinkProps extends LinkProps {
+  links?: LinkProps[]
+}
+
+const useStyles = createStyles((theme) => ({
+  link: {
+    fontWeight: 500,
+    display: 'block',
+    textDecoration: 'none',
+    padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
+    paddingLeft: '20px',
+    marginLeft: '20px',
+    fontSize: theme.fontSizes.sm,
+    color:
+      theme.colorScheme === 'dark'
+        ? theme.colors.dark[0]
+        : theme.colors.gray[7],
+    borderLeft: `1px solid ${
+      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
+    }`,
+    width: 'auto',
+
+    '&:hover': {
+      backgroundColor:
+        theme.colorScheme === 'dark'
+          ? theme.colors.dark[7]
+          : theme.colors.gray[0],
+      color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+    },
+  },
+}))
+
+function MainLink(item: MainLinkProps) {
+  const { classes } = useStyles()
+  const router = useRouter()
+
   return (
-    <UnstyledButton
-      sx={(theme) => ({
-        display: 'block',
-        width: '100%',
-        padding: theme.spacing.xs,
-        borderRadius: theme.radius.sm,
-        color:
-          theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
-
-        '&:hover': {
-          backgroundColor:
-            theme.colorScheme === 'dark'
-              ? theme.colors.dark[6]
-              : theme.colors.gray[0],
-        },
-      })}
-    >
-      <Group>
-        <ThemeIcon color={color} variant="light">
-          {icon}
-        </ThemeIcon>
-
-        <Text size="sm">{label}</Text>
-      </Group>
-    </UnstyledButton>
+    <Link href={item.link ?? '#'} passHref>
+      <NavLink
+        label={item.label}
+        icon={item.icon}
+        component="a"
+        childrenOffset={0}
+        active={router.pathname === item.link}
+      >
+        {!_.isEmpty(item.links) &&
+          _.isArray(item.links) &&
+          item.links.map((child) => (
+            <Link href={child.link ?? '#'} passHref>
+              <NavLink
+                key={child.label}
+                label={child.label}
+                component="a"
+                className={classes.link}
+                active={router.pathname === child.link}
+              />
+            </Link>
+          ))}
+      </NavLink>
+    </Link>
   )
 }
 
 const data = [
   {
-    icon: <IconGitPullRequest size={16} />,
+    icon: <IconHome size={16} />,
     color: 'blue',
-    label: 'Pull Requests',
+    label: 'Dashboard',
+    link: '/admin/dashboard',
   },
-  { icon: <IconAlertCircle size={16} />, color: 'teal', label: 'Open Issues' },
-  { icon: <IconMessages size={16} />, color: 'violet', label: 'Discussions' },
-  { icon: <IconDatabase size={16} />, color: 'grape', label: 'Databases' },
+  {
+    icon: <IconSettings size={16} />,
+    color: 'grape',
+    label: 'Settings',
+    links: [
+      {
+        icon: <IconSettings size={16} />,
+        color: 'grape',
+        label: 'Account',
+        link: '/admin/settings/account',
+      },
+      {
+        icon: <IconSettings size={16} />,
+        color: 'grape',
+        label: 'Master Data',
+        link: '/admin/settings/master',
+      },
+    ],
+  },
 ]
 
 export function NavbarMenus() {

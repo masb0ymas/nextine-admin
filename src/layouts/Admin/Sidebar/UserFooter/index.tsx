@@ -12,8 +12,8 @@ import React from 'react'
 function UserFooter() {
   const theme = useMantineTheme()
 
-  const defaultPicture =
-    'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
+  // const defaultPicture =
+  //   'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
   const githubPicture =
     'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
 
