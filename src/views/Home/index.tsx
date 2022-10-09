@@ -70,7 +70,7 @@ const useStyles = createStyles((theme) => ({
   },
 }))
 
-export function Home() {
+export function HomePage() {
   const { classes } = useStyles()
 
   return (
@@ -127,4 +127,4 @@ export function Home() {
   )
 }
 
-export default Home
+export default HomePage
