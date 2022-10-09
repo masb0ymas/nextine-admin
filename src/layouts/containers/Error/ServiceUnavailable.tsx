@@ -6,7 +6,6 @@ import {
   Container,
   Group,
 } from '@mantine/core'
-import Link from 'next/link'
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -49,31 +48,27 @@ const useStyles = createStyles((theme) => ({
   },
 }))
 
-function NotFound() {
+function ServiceUnavailable() {
   const { classes } = useStyles()
 
   return (
-    <Container className={classes.root}>
-      <div className={classes.label}>404</div>
-      <Title className={classes.title}>You have found a secret place.</Title>
-      <Text
-        color="dimmed"
-        size="lg"
-        align="center"
-        className={classes.description}
-      >
-        Unfortunately, this is only a 404 page. You may have mistyped the
-        address, or the page has been moved to another URL.
-      </Text>
-      <Group position="center">
-        <Link href="/login" passHref>
+    <div className={classes.root}>
+      <Container>
+        <div className={classes.label}>503</div>
+        <Title className={classes.title}>All of our servers are busy</Title>
+        <Text size="lg" align="center" className={classes.description}>
+          We cannot handle your request right now, please wait for a couple of
+          minutes and refresh the page. Our team is already working on this
+          issue.
+        </Text>
+        <Group position="center">
           <Button variant="subtle" size="md">
-            Take me back to home page
+            Refresh the page
           </Button>
-        </Link>
-      </Group>
-    </Container>
+        </Group>
+      </Container>
+    </div>
   )
 }
 
-export default NotFound
+export default ServiceUnavailable
