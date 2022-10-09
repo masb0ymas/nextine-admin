@@ -52,7 +52,7 @@ function Login() {
           </Link>
         </Group>
 
-        <Link href="/" passHref>
+        <Link href="/admin/dashboard" passHref>
           <Button fullWidth mt="xl">
             Sign in
           </Button>

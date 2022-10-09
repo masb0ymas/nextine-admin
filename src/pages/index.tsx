@@ -1,3 +1,3 @@
-import Dashboard from './admin/dashboard'
+import Home from "views/Home";
 
-export default Dashboard
+export default Home
