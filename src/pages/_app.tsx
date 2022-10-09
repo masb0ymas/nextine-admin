@@ -1,3 +1,4 @@
+import { RouterTransition } from '@core/components/RouterTransition'
 import {
   ColorScheme,
   ColorSchemeProvider,
@@ -45,8 +46,12 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           withGlobalStyles
           withNormalizeCSS
         >
-          <NotificationsProvider>
-            {/* <Component {...pageProps} /> */}
+          {/* nprogress loader */}
+          <RouterTransition />
+
+          {/* notification provider */}
+          <NotificationsProvider position="top-right" zIndex={2077}>
+            {/* render site layout */}
             {siteLayout}
           </NotificationsProvider>
         </MantineProvider>
