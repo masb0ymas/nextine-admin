@@ -11,9 +11,11 @@ import {
   Group,
   Button,
 } from '@mantine/core'
+import { showNotification } from '@mantine/notifications'
+import { IconCheck } from '@tabler/icons'
 import Link from 'next/link'
 
-function Login() {
+function LoginPage() {
   return (
     <Container size={420} my={100}>
       <Title
@@ -53,7 +55,17 @@ function Login() {
         </Group>
 
         <Link href="/admin/dashboard" passHref>
-          <Button fullWidth mt="xl">
+          <Button
+            fullWidth
+            mt="xl"
+            onClick={() =>
+              showNotification({
+                title: 'Welcome back, John Doe',
+                message: 'Login successfully',
+                icon: <IconCheck size={16} />,
+              })
+            }
+          >
             Sign in
           </Button>
         </Link>
@@ -64,4 +76,4 @@ function Login() {
   )
 }
 
-export default Login
+export default LoginPage
