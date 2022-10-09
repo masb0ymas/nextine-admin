@@ -9,7 +9,7 @@ function FooterLayout() {
   return (
     <Footer height={60} p="md" style={{ fontSize: 14 }}>
       <Center>
-        &copy; {`${yearNow} Created By`}&nbsp;
+        &copy; {`${yearNow} Created by`}&nbsp;
         <b>{BRAND}</b>
       </Center>
     </Footer>
