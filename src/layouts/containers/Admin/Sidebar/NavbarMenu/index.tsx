@@ -1,20 +1,9 @@
 import { createStyles, NavLink } from '@mantine/core'
-import { IconHome, IconSettings } from '@tabler/icons'
+import useMenuSidebar, { MainLinkProps } from 'data/query/useMenuSidebar'
 import _ from 'lodash'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-
-interface LinkProps {
-  icon: React.ReactNode
-  color: string
-  label: string
-  link?: string
-}
-
-interface MainLinkProps extends LinkProps {
-  links?: LinkProps[]
-}
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -49,8 +38,9 @@ function MainLink(item: MainLinkProps) {
   const router = useRouter()
 
   return (
-    <Link href={item.link ?? '#'} passHref>
+    <Link href={item.link ?? '#'} passHref key={item.label}>
       <NavLink
+        key={item.label}
         label={item.label}
         icon={item.icon}
         component="a"
@@ -60,7 +50,7 @@ function MainLink(item: MainLinkProps) {
         {!_.isEmpty(item.links) &&
           _.isArray(item.links) &&
           item.links.map((child) => (
-            <Link href={child.link ?? '#'} passHref>
+            <Link href={child.link ?? '#'} passHref key={child.label}>
               <NavLink
                 key={child.label}
                 label={child.label}
@@ -75,35 +65,10 @@ function MainLink(item: MainLinkProps) {
   )
 }
 
-const data = [
-  {
-    icon: <IconHome size={16} />,
-    color: 'blue',
-    label: 'Dashboard',
-    link: '/admin/dashboard',
-  },
-  {
-    icon: <IconSettings size={16} />,
-    color: 'grape',
-    label: 'Settings',
-    links: [
-      {
-        icon: <IconSettings size={16} />,
-        color: 'grape',
-        label: 'Account',
-        link: '/admin/settings/account',
-      },
-      {
-        icon: <IconSettings size={16} />,
-        color: 'grape',
-        label: 'Master Data',
-        link: '/admin/settings/master',
-      },
-    ],
-  },
-]
-
 export function NavbarMenus() {
+  const queryMenuSidebar = useMenuSidebar()
+  const { data } = queryMenuSidebar
+
   const links = data.map((link) => <MainLink {...link} key={link.label} />)
   return <div>{links}</div>
 }

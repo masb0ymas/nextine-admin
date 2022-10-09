@@ -1,3 +1,3 @@
-import AdminLayout from 'layouts/Admin'
+import Dashboard from './admin/dashboard'
 
-export default AdminLayout
+export default Dashboard

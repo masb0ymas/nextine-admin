@@ -1,3 +1,3 @@
-import NotFound from "layouts/Error/NotFound";
+import NotFound from "layouts/containers/Error/NotFound";
 
 export default NotFound

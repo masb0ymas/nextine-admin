@@ -6,14 +6,13 @@ import {
 import { NotificationsProvider } from '@mantine/notifications'
 import { BRAND } from 'config/env'
 import { getCookie, setCookie } from 'cookies-next'
+import getSiteLayout from 'layouts/core'
 import { GetServerSidePropsContext } from 'next'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useState } from 'react'
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
-  const { Component, pageProps } = props
-
   const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme)
 
   const toggleColorScheme = (value?: ColorScheme) => {
@@ -23,6 +22,8 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       maxAge: 60 * 60 * 24 * 30,
     })
   }
+
+  const siteLayout = getSiteLayout(props)
 
   return (
     <>
@@ -45,7 +46,8 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           withNormalizeCSS
         >
           <NotificationsProvider>
-            <Component {...pageProps} />
+            {/* <Component {...pageProps} /> */}
+            {siteLayout}
           </NotificationsProvider>
         </MantineProvider>
       </ColorSchemeProvider>

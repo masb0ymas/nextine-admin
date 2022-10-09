@@ -43,7 +43,12 @@
     "import/prefer-default-export": "off",
     "react/destructuring-assignment": "off",
     "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "react/require-default-props": "off",
     "@typescript-eslint/naming-convention": "off",
-    "import/no-unresolved": [2, { "ignore": ["@core", "config", "layouts", "views"] }]
+    "import/no-unresolved": [
+      2,
+      { "ignore": ["@core", "config", "data", "layouts", "pages", "views"] }
+    ]
   }
 }
