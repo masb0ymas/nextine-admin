@@ -12,7 +12,8 @@ import {
   Center,
   Box,
 } from '@mantine/core'
-import { IconArrowLeft } from '@tabler/icons'
+import { showNotification } from '@mantine/notifications'
+import { IconArrowLeft, IconCheck } from '@tabler/icons'
 import Link from 'next/link'
 
 const useStyles = createStyles((theme) => ({
@@ -36,7 +37,7 @@ const useStyles = createStyles((theme) => ({
   },
 }))
 
-export function ForgotPassword() {
+export function ForgotPassPage() {
   const { classes } = useStyles()
 
   return (
@@ -60,7 +61,18 @@ export function ForgotPassword() {
               </Center>
             </Anchor>
           </Link>
-          <Button className={classes.control}>Reset password</Button>
+          <Button
+            className={classes.control}
+            onClick={() =>
+              showNotification({
+                title: 'Request Reset Password',
+                message: 'Please check your email for the next steps',
+                icon: <IconCheck size={16} />,
+              })
+            }
+          >
+            Reset password
+          </Button>
         </Group>
       </Paper>
 
@@ -69,4 +81,4 @@ export function ForgotPassword() {
   )
 }
 
-export default ForgotPassword
+export default ForgotPassPage
