@@ -2,8 +2,8 @@ import matchPath from '@core/helpers/matchPath'
 import globalRoutes from 'layouts/routes'
 import { AppProps } from 'next/app'
 import React from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
