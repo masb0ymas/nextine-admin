@@ -1,7 +1,5 @@
-export interface RoleEntity {
-  id: string
+import { BaseEntity } from './Base'
+
+export interface RoleEntity extends BaseEntity {
   name: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt?: Date | string | null
 }
