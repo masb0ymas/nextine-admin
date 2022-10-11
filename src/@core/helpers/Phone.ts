@@ -1,8 +1,14 @@
 import parsePhoneNumber from 'libphonenumber-js'
+import _ from 'lodash'
 
-function formatPhone(phone: string) {
-  if (phone) {
-    const phoneNumber = parsePhoneNumber(phone)
+/**
+ * 
+ * @param phone 
+ * @returns 
+ */
+function formatPhone(phone?: string | null) {
+  if (!_.isEmpty(phone)) {
+    const phoneNumber = parsePhoneNumber(String(phone))
     return phoneNumber?.formatInternational()
   }
 
