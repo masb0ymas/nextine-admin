@@ -4,6 +4,7 @@ import {
   ColorSchemeProvider,
   MantineProvider,
 } from '@mantine/core'
+import { ModalsProvider } from '@mantine/modals'
 import { NotificationsProvider } from '@mantine/notifications'
 import { BRAND } from 'config/env'
 import { getCookie, setCookie } from 'cookies-next'
@@ -51,8 +52,12 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
 
           {/* notification provider */}
           <NotificationsProvider position="top-right" zIndex={2077}>
-            {/* render site layout */}
-            {siteLayout}
+            {/* modal provider */}
+            <ModalsProvider>
+              {/* render site layout */}
+              {siteLayout}
+              {/* render site layout */}
+            </ModalsProvider>
           </NotificationsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
