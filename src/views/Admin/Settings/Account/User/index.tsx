@@ -100,14 +100,14 @@ function UserPage() {
       accessor: 'isActive',
       title: 'Active',
       textAlignment: 'center',
-      width: 180,
+      width: 100,
       render: (info) => <Checkbox checked={info.isActive} />,
     },
     {
       accessor: 'isBlocked',
       title: 'Blocked',
       textAlignment: 'center',
-      width: 180,
+      width: 100,
       render: (info) => <Checkbox checked={info.isBlocked} />,
     },
     {
@@ -120,6 +120,7 @@ function UserPage() {
       accessor: 'createdAt',
       title: 'Register At',
       textAlignment: 'right',
+      width: 180,
       render: (info) => dayjs(info?.createdAt).format('DD MMMM YYYY'),
     },
     {
