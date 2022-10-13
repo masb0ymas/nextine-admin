@@ -1,8 +1,10 @@
+import { useAuthSession } from '@core/hooks/useAuthSession/useAuthSession'
 import { Anchor, Breadcrumbs, Paper, Tabs } from '@mantine/core'
 import { IconAdjustmentsAlt, IconClock, IconUsers } from '@tabler/icons'
 import UserPage from './User'
 
 function AccountPage() {
+  const user = useAuthSession()
   const items = [
     { id: 1, title: 'Account', href: '#' },
     { id: 2, title: 'Users', href: '#' },
@@ -11,6 +13,7 @@ function AccountPage() {
       {item.title}
     </Anchor>
   ))
+  if (!user) return null
 
   return (
     <div>
