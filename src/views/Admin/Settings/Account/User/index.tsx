@@ -206,6 +206,7 @@ function UserPage() {
       <Divider variant="dotted" />
 
       <DataTable
+        minHeight={350}
         withBorder={false}
         borderRadius="sm"
         withColumnBorders
@@ -214,6 +215,7 @@ function UserPage() {
         verticalAlignment="top"
         verticalSpacing="md"
         horizontalSpacing="md"
+        noRecordsText="No records to show"
         fetching={isFetching}
         columns={columns}
         records={newData}
@@ -242,7 +244,8 @@ function UserPage() {
               title: `Delete`,
               icon: <IconTrashX size={14} />,
               color: 'red',
-              hidden: selectedRecords.length !== 0 && selectedRecords.length > 1,
+              hidden:
+                selectedRecords.length !== 0 && selectedRecords.length > 1,
               onClick: () =>
                 showNotification({
                   color: 'red',

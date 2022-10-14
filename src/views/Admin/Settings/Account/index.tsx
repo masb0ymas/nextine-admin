@@ -1,23 +1,17 @@
-import { useAuthSession } from '@core/hooks/useAuthSession/useAuthSession'
-import { Anchor, Breadcrumbs, Paper, Tabs } from '@mantine/core'
+// import { useAuthSession } from '@core/hooks/useAuthSession/useAuthSession'
+import PageHeader from '@core/components/PageHeader'
+import { Paper, Tabs } from '@mantine/core'
 import { IconAdjustmentsAlt, IconClock, IconUsers } from '@tabler/icons'
 import UserPage from './User'
 
 function AccountPage() {
-  const user = useAuthSession()
-  const items = [
-    { id: 1, title: 'Account', href: '#' },
-    { id: 2, title: 'Users', href: '#' },
-  ].map((item) => (
-    <Anchor href={item.href} key={item.id}>
-      {item.title}
-    </Anchor>
-  ))
-  if (!user) return null
+  // const user = useAuthSession()
+
+  // if (!user) return null
 
   return (
     <div>
-      <Breadcrumbs pb={16}>{items}</Breadcrumbs>
+      <PageHeader title="Account" subTitle="Users" />
 
       <Paper shadow="sm" p="md" radius={12}>
         <Tabs variant="pills" radius="md" defaultValue="users">
