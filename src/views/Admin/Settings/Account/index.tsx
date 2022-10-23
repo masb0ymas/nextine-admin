@@ -1,20 +1,15 @@
-// import { useAuthSession } from '@core/hooks/useAuthSession/useAuthSession'
 import PageHeader from '@core/components/PageHeader'
 import { Paper, Tabs } from '@mantine/core'
 import { IconAdjustmentsAlt, IconClock, IconUsers } from '@tabler/icons'
 import UserPage from './User'
 
 function AccountPage() {
-  // const user = useAuthSession()
-
-  // if (!user) return null
-
   return (
     <div>
       <PageHeader title="Account" subTitle="Users" />
 
       <Paper shadow="sm" p="md" radius={12}>
-        <Tabs variant="pills" radius="md" defaultValue="users">
+        <Tabs keepMounted={false} variant="pills" radius="md" defaultValue="users">
           <Tabs.List>
             <Tabs.Tab value="users" icon={<IconUsers size={14} />}>
               Users
