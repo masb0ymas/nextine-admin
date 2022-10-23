@@ -1,3 +1,4 @@
+import { useAuthSession } from '@core/hooks/useAuthSession/useAuthSession'
 import {
   Avatar,
   Box,
@@ -8,25 +9,69 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
+import { showNotification } from '@mantine/notifications'
 import {
+  IconCheck,
   IconChevronLeft,
   IconChevronRight,
   IconLogout,
   IconUser,
+  IconX,
 } from '@tabler/icons'
+import { useMutation } from '@tanstack/react-query'
+import { LOCAL_STORAGE_SESSION } from 'config/env'
+import useVerifySession from 'data/query/useVerifySession'
+import AuthRepository from 'data/repository/AuthRepository'
+import _ from 'lodash'
+import Router from 'next/router'
 import React from 'react'
+
+// const defaultPicture =
+//   'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
+const githubPicture =
+  'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
 
 function UserFooter() {
   const theme = useMantineTheme()
   const match = useMediaQuery('(max-width: 980px)')
 
-  // const defaultPicture =
-  //   'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
-  const githubPicture =
-    'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
+  const userAuth = useAuthSession()
+  const { remove } = useVerifySession()
+
+  const postLogout = useMutation(() =>
+    AuthRepository.logout({ UserId: String(userAuth?.data?.id) }),
+  )
 
   async function handleLogout() {
-    console.log('OKe')
+    try {
+      const response = await postLogout.mutateAsync()
+      const message = _.get(response, 'data.message', '')
+
+      // remove session
+      localStorage.removeItem(LOCAL_STORAGE_SESSION)
+      remove() // remove cache react query
+
+      // show notif
+      showNotification({
+        title: `See you again!`,
+        message,
+        disallowClose: true,
+        color: 'green',
+        icon: <IconCheck size={16} />,
+      })
+
+      // direct success login
+      Router.push('/login')
+    } catch (error) {
+      const errMessage = _.get(error, 'response.data.message', '')
+
+      showNotification({
+        title: 'Error',
+        message: errMessage,
+        icon: <IconX size={16} />,
+        color: 'red',
+      })
+    }
   }
 
   return (
@@ -63,10 +108,10 @@ function UserFooter() {
               <Avatar src={githubPicture} radius="xl" />
               <Box sx={{ flex: 1 }}>
                 <Text size="sm" weight={500}>
-                  Hi, Super Admin
+                  {`Hi, ${userAuth?.data?.fullName}`}
                 </Text>
                 <Text color="dimmed" size="xs">
-                  super.admin@mail.com
+                  {userAuth?.data?.email}
                 </Text>
               </Box>
 
