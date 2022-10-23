@@ -8,7 +8,7 @@ import { UserRelationEntity } from 'data/entities/User'
 import UserRepository from 'data/repository/UserRepository'
 
 type UseUserResult = {
-  data: UserRelationEntity[]
+  data: UserRelationEntity
   total: number
 }
 
