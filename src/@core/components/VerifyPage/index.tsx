@@ -48,11 +48,11 @@ const useStyles = createStyles((theme) => ({
 }))
 
 interface VerifyPageProps {
-  isLoading: boolean
+  loading: boolean
 }
 
 function VerifyPage(props: VerifyPageProps) {
-  const { isLoading = true } = props
+  const { loading = true } = props
 
   const { classes, cx } = useStyles()
 
@@ -65,7 +65,7 @@ function VerifyPage(props: VerifyPageProps) {
         <Stack spacing="xs" align="center">
           <Avatar
             src={githubPicture}
-            className={cx(classes.avatar, { [classes.anim]: isLoading })}
+            className={cx(classes.avatar, { [classes.anim]: loading })}
           />
           <Text size="lg">Wait a moment . . .</Text>
         </Stack>
