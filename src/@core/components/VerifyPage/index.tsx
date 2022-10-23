@@ -2,7 +2,12 @@ import { Avatar, Center, createStyles, Stack, Text } from '@mantine/core'
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
-    backgroundColor: theme.colors.blue,
+    backgroundColor: theme.colors.blue[6],
+    // backgroundImage: theme.fn.linearGradient(
+    //   0,
+    //   theme.colors.indigo[6],
+    //   theme.colors.cyan[6],
+    // ),
     minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',
@@ -20,7 +25,7 @@ const useStyles = createStyles((theme) => ({
     background: 'white',
     fontSize: '20vmin',
     lineHeight: '20vmin',
-    animation: 'pulse infinite 1.5s linear',
+    animation: 'pulse infinite 1.2s linear',
   },
 
   anim: {
@@ -52,7 +57,7 @@ interface VerifyPageProps {
 }
 
 function VerifyPage(props: VerifyPageProps) {
-  const { loading = true } = props
+  const { loading } = props
 
   const { classes, cx } = useStyles()
 
