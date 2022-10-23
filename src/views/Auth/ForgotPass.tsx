@@ -67,6 +67,8 @@ export function ForgotPassPage() {
               showNotification({
                 title: 'Request Reset Password',
                 message: 'Please check your email for the next steps',
+                disallowClose: true,
+                color: 'green',
                 icon: <IconCheck size={16} />,
               })
             }
