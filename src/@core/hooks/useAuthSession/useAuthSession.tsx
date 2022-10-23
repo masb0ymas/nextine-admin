@@ -18,5 +18,5 @@ export function useAuthSession() {
     }
   }, [data, isLoading])
 
-  return data
+  return { data, isLoading }
 }
