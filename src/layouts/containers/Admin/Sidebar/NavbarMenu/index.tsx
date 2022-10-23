@@ -65,7 +65,7 @@ function MainLink(item: MainLinkProps) {
   )
 }
 
-export function NavbarMenus() {
+export default function AdminNavbarMenus() {
   const queryMenuSidebar = useMenuSidebar()
   const { data } = queryMenuSidebar
 

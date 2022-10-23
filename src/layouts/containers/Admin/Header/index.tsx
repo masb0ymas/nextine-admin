@@ -10,7 +10,7 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { BRAND } from 'config/env'
-import React, { useState } from 'react'
+import React from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = createStyles((theme, _params, _getRef) => ({
@@ -32,10 +32,15 @@ const useStyles = createStyles((theme, _params, _getRef) => ({
   },
 }))
 
-function HeaderLayout() {
-  const theme = useMantineTheme()
-  const [opened, setOpened] = useState(false)
+interface AdminHeaderLayoutProps {
+  opened: boolean
+  setOpened: React.Dispatch<React.SetStateAction<boolean>>
+}
 
+function AdminHeaderLayout(props: AdminHeaderLayoutProps) {
+  const { opened, setOpened } = props
+
+  const theme = useMantineTheme()
   const { classes } = useStyles()
 
   return (
@@ -52,16 +57,16 @@ function HeaderLayout() {
         </MediaQuery>
 
         <Group position="apart" spacing="lg">
-          <Text style={{ fontSize: 18, fontWeight: 600 }}>{BRAND}</Text>
-          <Code className={classes.version}>v3.1.2</Code>
+          <Text style={{ fontSize: 22, fontWeight: 600 }}>{BRAND}</Text>
+          <Code className={classes.version}>v0.0.1</Code>
         </Group>
 
         <Group>
-          <ColorSchemeToggle />
+          <ColorSchemeToggle styleGroup={{ marginTop: 0 }} />
         </Group>
       </div>
     </Header>
   )
 }
 
-export default HeaderLayout
+export default AdminHeaderLayout

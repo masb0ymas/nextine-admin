@@ -2,7 +2,7 @@ import { Center, Footer } from '@mantine/core'
 import { BRAND } from 'config/env'
 import React from 'react'
 
-function FooterLayout() {
+function AdminFooterLayout() {
   const dateNow = new Date()
   const yearNow = dateNow.getFullYear()
 
@@ -16,4 +16,4 @@ function FooterLayout() {
   )
 }
 
-export default FooterLayout
+export default AdminFooterLayout
