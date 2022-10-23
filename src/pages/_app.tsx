@@ -9,10 +9,15 @@ import { NotificationsProvider } from '@mantine/notifications'
 import { BRAND } from 'config/env'
 import { getCookie, setCookie } from 'cookies-next'
 import getSiteLayout from 'layouts/core'
+import _ from 'lodash'
 import { GetServerSidePropsContext } from 'next'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useState } from 'react'
+import slugify from 'slugify'
+
+const brand = _.toLower(slugify(BRAND))
+const cookieName = `${brand}-color-scheme`
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme)
@@ -20,9 +25,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const toggleColorScheme = (value?: ColorScheme) => {
     const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark')
     setColorScheme(nextColorScheme)
-    setCookie('mantine-color-scheme', nextColorScheme, {
-      maxAge: 60 * 60 * 24 * 30,
-    })
+    setCookie(cookieName, nextColorScheme, { maxAge: 60 * 60 * 24 * 30 })
   }
 
   const siteLayout = getSiteLayout(props)
@@ -66,5 +69,5 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
 }
 
 App.getInitialProps = ({ ctx }: { ctx: GetServerSidePropsContext }) => ({
-  colorScheme: getCookie('mantine-color-scheme', ctx) || 'light',
+  colorScheme: getCookie(cookieName, ctx) || 'dark',
 })
