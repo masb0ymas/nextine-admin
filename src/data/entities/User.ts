@@ -17,6 +17,8 @@ export interface UserRelationEntity extends Partial<UserEntity> {
   Role: Partial<RoleEntity>
 }
 
+export type LoginAttributes = Pick<UserEntity, 'email' | 'password'>
+
 export type UserAttributes = Omit<
   UserEntity,
   'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
