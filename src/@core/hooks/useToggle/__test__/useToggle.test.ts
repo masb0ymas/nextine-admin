@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks'
-import useToggle from '@nexys/hooks/useToggle/useToggle'
+import useToggle from '../useToggle'
 
 describe('basic function', () => {
   test('should isToggled false for default state', () => {

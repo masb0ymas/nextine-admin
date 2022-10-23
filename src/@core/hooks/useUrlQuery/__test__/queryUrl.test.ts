@@ -1,4 +1,4 @@
-import QueryUrl from '@nexys/hooks/useUrlQuery/QueryUrl'
+import QueryUrl from '../QueryUrl'
 
 describe('test basic query url', () => {
   test('should add filtered', () => {

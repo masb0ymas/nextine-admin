@@ -1,4 +1,4 @@
-import ArrayQuery from '@nexys/hooks/useUrlQuery/ArrayQuery'
+import ArrayQuery from '../ArrayQuery'
 
 describe('test basic function', () => {
   test('should set query', () => {
