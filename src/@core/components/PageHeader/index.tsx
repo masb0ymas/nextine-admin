@@ -6,10 +6,11 @@ interface PageHeaderProps {
   title: string
   subTitle?: string | null
   targetURL?: string | null
+  onBack?: () => void
 }
 
 function PageHeader(props: PageHeaderProps) {
-  const { title, subTitle, targetURL } = props
+  const { title, subTitle, targetURL, onBack } = props
 
   return (
     <Group mb="md" spacing="sm">
@@ -19,6 +20,12 @@ function PageHeader(props: PageHeaderProps) {
             <IconArrowLeft size={18} />
           </ActionIcon>
         </Link>
+      )}
+
+      {onBack && (
+        <ActionIcon component="a" onClick={onBack}>
+          <IconArrowLeft size={18} />
+        </ActionIcon>
       )}
 
       <Title size="h3">{title}</Title>
