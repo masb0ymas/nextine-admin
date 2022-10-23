@@ -55,7 +55,8 @@
     "prop-types": "^15.8.1",
     "query-string": "^7.1.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "slugify": "^1.6.5"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
