@@ -1,5 +1,8 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
+import VerifyPage from '@core/components/VerifyPage'
+import { useAuthSession } from '@core/hooks/useAuthSession/useAuthSession'
 import { AppShell, Loader, useMantineTheme } from '@mantine/core'
+import _ from 'lodash'
 import { ReactComponentLike } from 'prop-types'
 import React, { useState } from 'react'
 import AdminFooterLayout from './Footer'
@@ -26,11 +29,18 @@ const AdminContext = React.createContext<
 function AdminContainer(props: IProps) {
   const { Component } = props
 
+  const userAuth = useAuthSession()
+
   const stateLayoutLoading = useState(false)
   const [isLayoutLoading] = stateLayoutLoading
 
   const theme = useMantineTheme()
   const [opened, setOpened] = useState(false)
+
+  // authorize user
+  if (_.isEmpty(userAuth.data)) {
+    return <VerifyPage loading={userAuth.isLoading} />
+  }
 
   return (
     <AdminContext.Provider value={{ stateLayoutLoading }}>
