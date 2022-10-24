@@ -39,7 +39,7 @@ function AdminContainer(props: IProps) {
 
   // authorize user
   if (_.isEmpty(userAuth.data)) {
-    return <VerifyPage loading={userAuth.isLoading} />
+    return <VerifyPage loading={userAuth.isFetching} />
   }
 
   return (

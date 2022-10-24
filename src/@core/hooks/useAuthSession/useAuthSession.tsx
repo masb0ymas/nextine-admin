@@ -4,7 +4,7 @@ import Router from 'next/router'
 import { useEffect } from 'react'
 
 export function useAuthSession() {
-  const { data, isLoading, error } = useVerifySession()
+  const { data, isLoading, isFetching, error } = useVerifySession()
 
   useEffect(() => {
     if (!isLoading && !_.isEmpty(error)) {
@@ -18,5 +18,5 @@ export function useAuthSession() {
     }
   }, [data, isLoading])
 
-  return { data, isLoading }
+  return { data, isFetching }
 }
