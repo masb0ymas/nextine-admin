@@ -105,7 +105,7 @@ function UserFooter() {
         <Menu transition="pop" withArrow position={match ? 'top-end' : 'right'}>
           <Menu.Target>
             <Group>
-              <Avatar src={githubPicture} radius="xl" />
+              {!match && <Avatar src={githubPicture} radius="xl" />}
               <Box sx={{ flex: 1 }}>
                 <Text size="sm" weight={500}>
                   {`Hi, ${userAuth?.data?.fullName}`}
