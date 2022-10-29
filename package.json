@@ -6,7 +6,7 @@
     "dev": "next dev",
     "start": "next start",
     "analyze": "ANALYZE=true next build",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "npx tsc --noEmit",
     "lint": "next lint",
     "prebuild": "npm-run-all lint typecheck",
     "build": "next build",
