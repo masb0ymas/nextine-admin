@@ -108,7 +108,7 @@ function UserFooter() {
               {!match && <Avatar src={githubPicture} radius="xl" />}
               <Box sx={{ flex: 1 }}>
                 <Text size="sm" weight={500}>
-                  {`Hi, ${userAuth?.data?.fullName}`}
+                  {`Hi, ${userAuth?.data?.fullname}`}
                 </Text>
                 <Text color="dimmed" size="xs">
                   {userAuth?.data?.email}

@@ -1,41 +1,66 @@
 import PageHeader from '@core/components/PageHeader'
-import { Paper, Tabs } from '@mantine/core'
-import { IconAdjustmentsAlt, IconClock, IconUsers } from '@tabler/icons'
-import UserPage from './User'
+import { capitalizeFirstLetter } from '@core/helpers/String'
+import { Divider, Paper, Tabs } from '@mantine/core'
+import { IconAdjustmentsAlt, IconUsers } from '@tabler/icons'
+import { useRouter } from 'next/router'
+import SettingRoleTab from './Role'
+import SettingUserTab from './User'
 
 function AccountPage() {
+  const router = useRouter()
+  const baseUrl = `/admin/settings/account`
+
+  const subTitle = capitalizeFirstLetter(
+    (router.query.tabs as string) || 'Users'
+  )
+
   return (
-    <div>
-      <PageHeader title="Account" subTitle="Users" />
+    <Paper shadow="sm" p="xl" radius="md">
+      <PageHeader title="Account" subTitle={subTitle} />
 
-      <Paper shadow="sm" p="md" radius={12}>
-        <Tabs keepMounted={false} variant="pills" radius="md" defaultValue="users">
-          <Tabs.List>
-            <Tabs.Tab value="users" icon={<IconUsers size={14} />}>
-              Users
-            </Tabs.Tab>
-            <Tabs.Tab value="role" icon={<IconAdjustmentsAlt size={14} />}>
-              Role
-            </Tabs.Tab>
-            <Tabs.Tab value="session" icon={<IconClock size={14} />}>
-              Session
-            </Tabs.Tab>
-          </Tabs.List>
+      <Divider variant="dashed" />
 
-          <Tabs.Panel value="users" pt="xs">
-            <UserPage />
-          </Tabs.Panel>
+      <Tabs
+        keepMounted={false}
+        variant="pills"
+        radius="md"
+        my="sm"
+        defaultValue="user"
+        value={router.query.tabs as string}
+        onTabChange={(value) => router.push(`${baseUrl}?tabs=${value}`)}
+        styles={(theme) => ({
+          tab: {
+            ...theme.fn.focusStyles(),
+            backgroundColor:
+              theme.colorScheme === 'dark'
+                ? theme.colors.dark[6]
+                : theme.colors.blue[0],
+            color:
+              theme.colorScheme === 'dark'
+                ? theme.colors.dark[0]
+                : theme.colors.gray[9],
+          },
+        })}
+      >
+        <Tabs.List>
+          <Tabs.Tab value="user" icon={<IconUsers size={14} />}>
+            Users
+          </Tabs.Tab>
 
-          <Tabs.Panel value="role" pt="xs">
-            Role tab content
-          </Tabs.Panel>
+          <Tabs.Tab value="role" icon={<IconAdjustmentsAlt size={14} />}>
+            Role
+          </Tabs.Tab>
+        </Tabs.List>
 
-          <Tabs.Panel value="session" pt="xs">
-            Session tab content
-          </Tabs.Panel>
-        </Tabs>
-      </Paper>
-    </div>
+        <Tabs.Panel value="user" pt="xs">
+          <SettingUserTab />
+        </Tabs.Panel>
+
+        <Tabs.Panel value="role" pt="xs">
+          <SettingRoleTab />
+        </Tabs.Panel>
+      </Tabs>
+    </Paper>
   )
 }
 

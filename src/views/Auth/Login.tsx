@@ -51,7 +51,7 @@ function LoginPage() {
     try {
       const response = await postLogin.mutateAsync(form.values)
       const message = _.get(response, 'data.message', '') as string
-      const fullName = _.get(response, 'data.fullName', 'John Doe') as string
+      const fullname = _.get(response, 'data.fullname', 'John Doe') as string
       const accessToken = _.get(response, 'data.accessToken', {}) as string
 
       // save session
@@ -59,7 +59,7 @@ function LoginPage() {
 
       // show notif
       showNotification({
-        title: `Welcome back, ${fullName}`,
+        title: `Welcome back, ${fullname}`,
         message,
         disallowClose: true,
         color: 'green',
