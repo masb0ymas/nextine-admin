@@ -47,6 +47,7 @@
     "react/require-default-props": "off",
     "react/no-unstable-nested-components": "off",
     "@typescript-eslint/naming-convention": "off",
+    "arrow-body-style": "off",
     "import/no-unresolved": [
       2,
       { "ignore": ["@core", "config", "data", "layouts", "pages", "views"] }
