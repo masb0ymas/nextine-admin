@@ -4,12 +4,12 @@ import useUrlQuery, {
 } from '@core/hooks/useUrlQuery/useUrlQuery'
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { UserRelationEntity } from 'data/entities/User'
+import { UserEntity } from 'data/entities/User'
 import UserRepository from 'data/repository/UserRepository'
 
-type UseUserResult = UserRelationEntity
+type UseResult = UserEntity
 
-type TQueryFnData = UseUserResult
+type TQueryFnData = UseResult
 type TError = AxiosError
 
 // endpoint API
@@ -18,7 +18,7 @@ const endpointURL = `${BASE_API_URL}/user`
 function useUserById(
   id: string,
   urlOptions?: UseUrlQueryOptions,
-  options?: UseQueryOptions<TQueryFnData, TError>,
+  options?: UseQueryOptions<TQueryFnData, TError>
 ) {
   const urlQuery = useUrlQuery(urlOptions)
   const query = useQuery<TQueryFnData, TError>(
@@ -34,7 +34,7 @@ function useUserById(
       select: (res: any) => res?.data,
       enabled: Boolean(id),
       ...options,
-    },
+    }
   )
 
   return {

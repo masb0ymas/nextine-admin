@@ -4,40 +4,40 @@ import useUrlQuery, {
 } from '@core/hooks/useUrlQuery/useUrlQuery'
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { UserRelationEntity } from 'data/entities/User'
-import UserRepository from 'data/repository/UserRepository'
+import { RoleEntity } from 'data/entities/Role'
+import RoleRepository from 'data/repository/RoleRepository'
 
-type UseUserResult = {
-  data: UserRelationEntity[]
+type UseResult = {
+  data: RoleEntity[]
   total: number
 }
 
-type TQueryFnData = UseUserResult
+type TQueryFnData = UseResult
 type TError = AxiosError
 
 // endpoint API
-const endpointURL = `${BASE_API_URL}/user?`
+const endpointURL = `${BASE_API_URL}/role?`
 
-function useUser(
+function useRole(
   urlOptions?: UseUrlQueryOptions,
-  options?: UseQueryOptions<TQueryFnData, TError>,
+  options?: UseQueryOptions<TQueryFnData, TError>
 ) {
   const urlQuery = useUrlQuery(urlOptions)
   const query = useQuery<TQueryFnData, TError>(
-    urlQuery.transformKey('/user'),
+    urlQuery.transformKey('/role'),
     () =>
-      UserRepository.api
+      RoleRepository.api
         .get(urlQuery.transformUrl(endpointURL))
         .then((res) => res.data),
-    { ...options },
+    { ...options }
   )
 
   return {
     ...query,
-    data: query.data?.data,
-    total: query.data?.total,
+    data: query.data?.data ?? [],
+    total: query.data?.total ?? 0,
     helpers: urlQuery,
   }
 }
 
-export default useUser
+export default useRole
