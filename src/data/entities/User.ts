@@ -1,8 +1,9 @@
 import { BaseEntity } from './Base'
 import { RoleEntity } from './Role'
+import { UploadEntity } from './Upload'
 
 export interface UserEntity extends BaseEntity {
-  fullName: string
+  fullname: string
   email: string
   password?: string | null
   phone?: string | null
@@ -10,11 +11,9 @@ export interface UserEntity extends BaseEntity {
   isActive?: boolean
   isBlocked?: boolean
   UploadId?: string | null
+  Upload?: UploadEntity | null
   RoleId: string
-}
-
-export interface UserRelationEntity extends Partial<UserEntity> {
-  Role: Partial<RoleEntity>
+  Role: RoleEntity
 }
 
 export type LoginAttributes = Pick<UserEntity, 'email' | 'password'>
@@ -26,7 +25,7 @@ export type UserAttributes = Omit<
 
 export const defaultUserData = {
   id: null,
-  fullName: null,
+  fullname: null,
   email: null,
   password: null,
   phone: null,
