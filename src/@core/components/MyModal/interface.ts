@@ -12,10 +12,16 @@ export interface OpenModalEntity {
   mutation: ReturnType<typeof useMutation>
 }
 
-export interface OpenDeleteModalEntity extends OpenModalEntity {
+export interface OpenSelectedModalEntity extends OpenModalEntity {
   id: string
+  title?: string
+  labelConfirm?: string
+  labelCancel?: string
 }
 
-export interface OpenDeleteSelectedModalEntity extends OpenModalEntity {
+export interface OpenMultiSelectedModalEntity extends OpenModalEntity {
   ids: string[]
+  title?: string
+  labelConfirm?: string
+  labelCancel?: string
 }

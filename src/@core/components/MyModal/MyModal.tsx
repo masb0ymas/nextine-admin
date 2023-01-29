@@ -4,8 +4,8 @@ import { showNotification } from '@mantine/notifications'
 import { IconCheck } from '@tabler/icons'
 import _ from 'lodash'
 import {
-  OpenDeleteModalEntity,
-  OpenDeleteSelectedModalEntity,
+  OpenMultiSelectedModalEntity,
+  OpenSelectedModalEntity,
 } from './interface'
 
 /**
@@ -28,14 +28,18 @@ export const useStyleModal = createStyles((theme) => ({
  * @param values
  * @returns
  */
-export const openDeleteModal = (values: OpenDeleteModalEntity) => {
-  const { id, mutation, query } = values
+export const openSelectModal = (values: OpenSelectedModalEntity) => {
+  const { id, mutation, query, title, labelConfirm, labelCancel } = values
+
+  const defaultTitle = title ?? 'Are you sure you want to delete this data ?'
+  const defaultLabelConfirm = labelConfirm ?? 'Confirm Delete'
+  const defaultLabelCancel = labelCancel ?? "No don't delete"
 
   return openConfirmModal({
     title: 'Delete Data',
     centered: true,
-    children: <Text size="sm">Are you sure you want to delete this data?</Text>,
-    labels: { confirm: 'Confirm Delete', cancel: "No don't delete" },
+    children: <Text size="sm">{defaultTitle}</Text>,
+    labels: { confirm: defaultLabelConfirm, cancel: defaultLabelCancel },
     confirmProps: { color: 'red' },
     onCancel: () => null,
     onConfirm: async () => {
@@ -64,18 +68,21 @@ export const openDeleteModal = (values: OpenDeleteModalEntity) => {
  * @param values
  * @returns
  */
-export const openDeleteSelectedModal = (
-  values: OpenDeleteSelectedModalEntity
+export const openMultiSelectedModal = (
+  values: OpenMultiSelectedModalEntity,
 ) => {
-  const { ids, mutation, query } = values
+  const { ids, mutation, query, title, labelConfirm, labelCancel } = values
+
+  const defaultTitle =
+    title ?? 'Are you sure you want to delete selected data ?'
+  const defaultLabelConfirm = labelConfirm ?? 'Confirm Delete'
+  const defaultLabelCancel = labelCancel ?? "No don't delete"
 
   return openConfirmModal({
     title: 'Delete Selected Data',
     centered: true,
-    children: (
-      <Text size="sm">Are you sure you want to delete selected data?</Text>
-    ),
-    labels: { confirm: 'Confirm Delete', cancel: "No don't delete" },
+    children: <Text size="sm">{defaultTitle}</Text>,
+    labels: { confirm: defaultLabelConfirm, cancel: defaultLabelCancel },
     confirmProps: { color: 'red' },
     onCancel: () => null,
     onConfirm: async () => {
