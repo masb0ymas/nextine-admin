@@ -28,10 +28,10 @@ class QueryUrl {
     })
 
     this.sorted = new ArrayQuery({
-      keyId: 'id',
-      keyValue: 'desc',
+      keyId: 'sort',
+      keyValue: 'order',
       filterValue: {
-        only: [true, false],
+        only: ['ASC', 'DESC'],
       },
       ...this.options.sorted,
     })
