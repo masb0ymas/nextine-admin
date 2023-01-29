@@ -2,6 +2,7 @@ import { useAuthSession } from '@core/hooks/useAuthSession/useAuthSession'
 import {
   Avatar,
   Box,
+  createStyles,
   Group,
   Menu,
   Text,
@@ -31,7 +32,18 @@ import React from 'react'
 const githubPicture =
   'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
 
+const useStyles = createStyles(() => ({
+  elipsis: {
+    width: 150,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+  },
+}))
+
 function UserFooter() {
+  const { classes } = useStyles()
+
   const theme = useMantineTheme()
   const match = useMediaQuery('(max-width: 980px)')
 
@@ -39,7 +51,7 @@ function UserFooter() {
   const { remove } = useVerifySession()
 
   const postLogout = useMutation(() =>
-    AuthRepository.logout({ UserId: String(userAuth?.data?.id) }),
+    AuthRepository.logout({ UserId: String(userAuth?.data?.id) })
   )
 
   async function handleLogout() {
@@ -110,7 +122,7 @@ function UserFooter() {
                 <Text size="sm" weight={500}>
                   {`Hi, ${userAuth?.data?.fullname}`}
                 </Text>
-                <Text color="dimmed" size="xs">
+                <Text color="dimmed" size="xs" className={classes.elipsis}>
                   {userAuth?.data?.email}
                 </Text>
               </Box>
