@@ -8,7 +8,8 @@ import { useMutation } from '@tanstack/react-query'
 import { RoleAttributes } from 'data/entities/Role'
 import useRoleById from 'data/query/Role/useRoleById'
 import RoleRepository from 'data/repository/RoleRepository'
-import roleSchema from 'data/validation/master/data/role'
+import roleSchema from 'data/validation/master/role'
+
 import { queryClient } from 'layouts/core'
 import { get } from 'lodash'
 import Router, { useRouter } from 'next/router'
@@ -30,11 +31,10 @@ function AbstractForm({
 }: AbstractFormProps) {
   const [visible, setVisible] = useState<boolean>(false)
 
-  const baseUrl = `/admin/settings/account?tabs=role`
+  const baseURL = `/admin/settings/account?tabs=role`
 
   const form = useForm({
     initialValues,
-
     validate,
   })
 
@@ -44,13 +44,16 @@ function AbstractForm({
     try {
       const response = await mutation.mutateAsync(form.values)
       const message = get(response, 'data.message', '') as string
+
       showNotification({
         title: 'Submit Successfully',
         message,
         icon: <IconCheck size={16} />,
         color: 'green',
       })
-      Router.back()
+
+      // redirect
+      Router.push(baseURL)
     } catch (error) {
       const description = get(error, 'response.data.message', '')
 
@@ -65,7 +68,7 @@ function AbstractForm({
       <CustomLoadingOverlay visible={visible} />
 
       <PageHeader
-        targetURL={baseUrl}
+        targetURL={baseURL}
         title="Account"
         subTitle={`${isEdit ? 'Edit' : 'Add'} Role`}
       />
@@ -74,11 +77,11 @@ function AbstractForm({
           <Grid.Col xs={24} md={16}>
             <Paper shadow="sm" radius="md" p="lg">
               <Grid gutter="xl" columns={24}>
-                <Grid.Col xs={24} md={12}>
+                <Grid.Col xs={24}>
                   <TextInput
                     required
-                    label="Nama Role"
-                    placeholder="Input Nama Role"
+                    label="Name"
+                    placeholder="Input Name"
                     {...form.getInputProps('name')}
                   />
                 </Grid.Col>
@@ -112,7 +115,7 @@ function FormAdd() {
       onSettled() {
         queryClient.invalidateQueries(['/role'])
       },
-    },
+    }
   )
 
   return (
@@ -143,7 +146,7 @@ function FormEdit(props: any) {
         remove()
         queryClient.invalidateQueries(['/role'])
       },
-    },
+    }
   )
 
   if (isLoading) {

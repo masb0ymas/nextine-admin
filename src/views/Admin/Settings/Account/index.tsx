@@ -11,7 +11,7 @@ function AccountPage() {
   const baseUrl = `/admin/settings/account`
 
   const subTitle = capitalizeFirstLetter(
-    (router.query.tabs as string) || 'Users'
+    (router.query.tabs as string) || 'User'
   )
 
   return (
@@ -44,7 +44,7 @@ function AccountPage() {
       >
         <Tabs.List>
           <Tabs.Tab value="user" icon={<IconUsers size={14} />}>
-            Users
+            User
           </Tabs.Tab>
 
           <Tabs.Tab value="role" icon={<IconAdjustmentsAlt size={14} />}>

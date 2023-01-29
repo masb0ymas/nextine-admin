@@ -86,7 +86,7 @@ function SettingUserTab() {
   const columns: DataTableColumn<UserEntity>[] = [
     {
       accessor: 'fullname',
-      title: 'Nama lengkap',
+      title: 'Fullname',
       textAlignment: 'center',
       width: 300,
       ellipsis: true,
@@ -107,7 +107,7 @@ function SettingUserTab() {
     },
     {
       accessor: 'isActive',
-      title: 'Aktif',
+      title: 'Active',
       textAlignment: 'center',
       width: 100,
       render: (info) => <Checkbox checked={info.isActive} />,
@@ -128,10 +128,10 @@ function SettingUserTab() {
     },
     {
       accessor: 'createdAt',
-      title: 'Tanggal daftar',
+      title: 'Register At',
       textAlignment: 'center',
       width: 180,
-      render: (info) => formatDateTime(info.createdAt),
+      render: (info) => info.createdAt && formatDateTime(info.createdAt),
     },
   ]
 
@@ -147,9 +147,11 @@ function SettingUserTab() {
             onChange={(e: any) => setName(e.target.value)}
           />
         </Grid.Col>
+
         <Grid.Col span="auto" />
+
         <Grid.Col span={2} style={{ textAlign: 'right' }}>
-          <Link href={`${baseURL}/users/add`}>
+          <Link href={`${baseURL}/add`}>
             <Button leftIcon={<IconPlus size={18} />}>Add</Button>
           </Link>
         </Grid.Col>
@@ -173,9 +175,9 @@ function SettingUserTab() {
           })
         }}
         // @ts-expect-error
-        softDelete={softDelete}
+        selectedMutation={softDelete}
         // @ts-expect-error
-        multipleSoftDelete={multipleSoftDelete}
+        multiSelectedMutation={multipleSoftDelete}
       />
     </div>
   )

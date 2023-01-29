@@ -1,7 +1,7 @@
 import { useStyleModal } from '@core/components/MyModal/MyModal'
 import MyTable from '@core/components/MyTable/MyTable'
 import useDebounce from '@core/hooks/useDebounce/useDebounce'
-import { Button, Divider, Grid, Input, useMantineTheme } from '@mantine/core'
+import { Button, Divider, Grid, Input } from '@mantine/core'
 import { openModal } from '@mantine/modals'
 import { IconPlus, IconSearch } from '@tabler/icons'
 import { useMutation } from '@tanstack/react-query'
@@ -49,11 +49,6 @@ function SettingRoleTab() {
     })
   }, [page])
 
-  const {
-    breakpoints: { xs: xsBreakpoint },
-  } = useMantineTheme()
-  const aboveXsMediaQuery = `(min-width: ${xsBreakpoint}px)`
-
   // Mutation Delete
   const softDelete = useMutation(
     (id: string) => RoleRepository.softDelete(id),
@@ -61,7 +56,7 @@ function SettingRoleTab() {
       onSettled() {
         queryClient.invalidateQueries(['/role'])
       },
-    },
+    }
   )
 
   // Mutation Multiple Delete
@@ -72,16 +67,14 @@ function SettingRoleTab() {
       onSettled() {
         queryClient.invalidateQueries(['/role'])
       },
-    },
+    }
   )
 
   const columns: DataTableColumn<RoleEntity>[] = [
     {
       accessor: 'name',
-      title: 'Nama',
-      ellipsis: true,
+      title: 'Name',
       textAlignment: 'center',
-      visibleMediaQuery: aboveXsMediaQuery,
     },
   ]
 
@@ -97,10 +90,12 @@ function SettingRoleTab() {
             onChange={(e: any) => setName(e.target.value)}
           />
         </Grid.Col>
+
         <Grid.Col span="auto" />
+
         <Grid.Col span={2} style={{ textAlign: 'right' }}>
           <Link href={`${baseURL}/add`}>
-            <Button leftIcon={<IconPlus size={18} />}>Tambah</Button>
+            <Button leftIcon={<IconPlus size={18} />}>Add</Button>
           </Link>
         </Grid.Col>
       </Grid>
@@ -123,9 +118,9 @@ function SettingRoleTab() {
           })
         }}
         // @ts-expect-error
-        softDelete={softDelete}
+        selectedMutation={softDelete}
         // @ts-expect-error
-        multipleSoftDelete={multipleSoftDelete}
+        multiSelectedMutation={multipleSoftDelete}
       />
     </div>
   )

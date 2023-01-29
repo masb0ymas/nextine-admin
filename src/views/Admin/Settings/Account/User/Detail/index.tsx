@@ -2,7 +2,7 @@
 import { useStyleModal } from '@core/components/MyModal/MyModal'
 import { formatDateTime } from '@core/helpers/Date'
 import formatPhone from '@core/helpers/Phone'
-import { Divider, Group, Stack, Text } from '@mantine/core'
+import { Checkbox, Divider, Group, Stack, Text } from '@mantine/core'
 import { UserEntity } from 'data/entities/User'
 
 function DetailSettingUserModal({ data }: { data: UserEntity }) {
@@ -22,7 +22,7 @@ function DetailSettingUserModal({ data }: { data: UserEntity }) {
 
         <Group>
           <Text className={classes.modalLabel} size="sm">
-            email
+            Email
           </Text>
           <Text size="sm">{data.email}</Text>
         </Group>
@@ -31,7 +31,21 @@ function DetailSettingUserModal({ data }: { data: UserEntity }) {
           <Text className={classes.modalLabel} size="sm">
             Phone
           </Text>
-          <Text size="sm">{formatPhone(data.phone) ?? '-'}</Text>
+          <Text size="sm">{formatPhone(data.phone)}</Text>
+        </Group>
+
+        <Group>
+          <Text className={classes.modalLabel} size="sm">
+            Active
+          </Text>
+          <Checkbox checked={data?.isActive} />
+        </Group>
+
+        <Group>
+          <Text className={classes.modalLabel} size="sm">
+            Block
+          </Text>
+          <Checkbox checked={data?.isBlocked} />
         </Group>
 
         <Group>
@@ -43,9 +57,11 @@ function DetailSettingUserModal({ data }: { data: UserEntity }) {
 
         <Group>
           <Text className={classes.modalLabel} size="sm">
-            Tanggal daftar
+            Register At
           </Text>
-          <Text size="sm">{formatDateTime(data.createdAt)}</Text>
+          <Text size="sm">
+            {data.createdAt && formatDateTime(data.createdAt)}
+          </Text>
         </Group>
       </Stack>
     </div>

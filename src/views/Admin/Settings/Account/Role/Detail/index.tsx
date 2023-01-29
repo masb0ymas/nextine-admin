@@ -14,7 +14,7 @@ function DetailSettingRoleModal({ data }: { data: RoleEntity }) {
       <Stack mt="md">
         <Group>
           <Text className={classes.modalLabel} size="sm">
-            Nama
+            Name
           </Text>
           <Text size="sm">{data.name}</Text>
         </Group>
@@ -23,7 +23,7 @@ function DetailSettingRoleModal({ data }: { data: RoleEntity }) {
           <Text className={classes.modalLabel} size="sm">
             Created At
           </Text>
-          <Text size="sm">{formatDateTime(data.createdAt)}</Text>
+          <Text size="sm">{data.createdAt && formatDateTime(data.createdAt)}</Text>
         </Group>
       </Stack>
     </div>

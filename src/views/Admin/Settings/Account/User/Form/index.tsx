@@ -42,11 +42,10 @@ function AbstractForm({
   const [visiblePass, { toggle: togglePass }] = useDisclosure(false)
   const [visibleCPass, { toggle: toggleCPass }] = useDisclosure(false)
 
-  const baseUrl = '/admin/settings/account'
+  const baseURL = '/admin/settings/account?tabs=user'
 
   const form = useForm({
     initialValues,
-
     validate,
   })
 
@@ -73,7 +72,9 @@ function AbstractForm({
         icon: <IconCheck size={16} />,
         color: 'green',
       })
-      Router.back()
+
+      // redirect
+      Router.push(baseURL)
     } catch (error) {
       const description = get(error, 'response.data.message', '')
 
@@ -88,7 +89,7 @@ function AbstractForm({
       <CustomLoadingOverlay visible={visible} />
 
       <PageHeader
-        targetURL={`${baseUrl}?tabs=user`}
+        targetURL={`${baseURL}?tabs=user`}
         title="Account"
         subTitle={`${isEdit ? 'Edit' : 'Add'} User`}
       />
@@ -102,7 +103,7 @@ function AbstractForm({
                     required
                     label="Fullname"
                     placeholder="Your full name"
-                    {...form.getInputProps('fullName')}
+                    {...form.getInputProps('fullname')}
                   />
                 </Grid.Col>
 
@@ -115,20 +116,13 @@ function AbstractForm({
                   />
                 </Grid.Col>
 
-                <Grid.Col span={24}>
-                  <TextInput
-                    label="Phone"
-                    placeholder="0816442*****"
-                    {...form.getInputProps('phone')}
-                  />
-                </Grid.Col>
-
                 <Grid.Col xs={24} md={12}>
                   <PasswordInput
                     label="Password"
                     required={!isEdit}
                     visible={visiblePass}
                     onVisibilityChange={togglePass}
+                    placeholder="******"
                     {...form.getInputProps('newPassword')}
                   />
                 </Grid.Col>
@@ -139,11 +133,20 @@ function AbstractForm({
                     required={!isEdit}
                     visible={visibleCPass}
                     onVisibilityChange={toggleCPass}
+                    placeholder="******"
                     {...form.getInputProps('confirmNewPassword')}
                   />
                 </Grid.Col>
 
-                <Grid.Col xs={24}>
+                <Grid.Col xs={24} md={12}>
+                  <TextInput
+                    label="Phone"
+                    placeholder="0816442*****"
+                    {...form.getInputProps('phone')}
+                  />
+                </Grid.Col>
+
+                <Grid.Col xs={24} md={12}>
                   <Select
                     required
                     label="Role"
@@ -181,7 +184,7 @@ function AbstractForm({
               <Grid>
                 <Grid.Col xs={24}>
                   <Checkbox
-                    label="Aktif"
+                    label="Active"
                     checked={form.values.isActive}
                     {...form.getInputProps('isActive')}
                   />
@@ -205,13 +208,13 @@ function AbstractForm({
 
 function FormAdd() {
   const createData = useMutation((data: UserAttributes) =>
-    UserRepository.create(data),
+    UserRepository.create(data)
   )
 
   return (
     <AbstractForm
       initialValues={{
-        fullName: '',
+        fullname: '',
         newPassword: '',
         email: '',
         RoleId: '',
@@ -220,7 +223,7 @@ function FormAdd() {
         isActive: false,
       }}
       validate={{
-        fullName: (value: string) =>
+        fullname: (value: string) =>
           value.length < 3 ? 'Nama minimal 3 karakter' : null,
         email: (value: string) =>
           /^\S+@\S+$/.test(value) ? null : 'Invalid email',
@@ -250,7 +253,7 @@ function FormEdit() {
       onSettled() {
         remove()
       },
-    },
+    }
   )
 
   if (isLoading) {
@@ -269,7 +272,7 @@ function FormEdit() {
         confirmNewPassword: undefined,
       }}
       validate={{
-        fullName: (value: string) =>
+        fullname: (value: string) =>
           value.length < 3 ? 'Nama minimal 3 karakter' : null,
         email: (value: string) =>
           /^\S+@\S+$/.test(value) ? null : 'Invalid email',
