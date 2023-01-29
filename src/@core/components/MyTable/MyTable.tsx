@@ -1,36 +1,18 @@
-import useUrlQuery from '@core/hooks/useUrlQuery/useUrlQuery'
-import { ActionIcon, Group } from '@mantine/core'
+import { ActionIcon, Group, Tooltip } from '@mantine/core'
 import { IconEdit, IconEye, IconTrash, IconTrashX } from '@tabler/icons'
-import { QueryObserverBaseResult, useMutation } from '@tanstack/react-query'
 import { DataTable, DataTableColumn } from 'mantine-datatable'
 import Router from 'next/router'
 import { useState } from 'react'
-import { openDeleteModal, openDeleteSelectedModal } from '../MyModal/MyModal'
-
-type Query = QueryObserverBaseResult & {
-  data: any[]
-  helpers: ReturnType<typeof useUrlQuery>
-  total: number
-}
-
-interface MyTableEntity<T> extends ReturnType<typeof DataTable<T>> {
-  query: Query
-  columns: DataTableColumn<T>[]
-  baseURL: string
-  softDelete: ReturnType<typeof useMutation>
-  multipleSoftDelete: ReturnType<typeof useMutation>
-  showModalDetail: (data: T) => void
-  isEdit?: boolean
-  isDeleted?: boolean
-}
+import { openMultiSelectedModal, openSelectModal } from '../MyModal/MyModal'
+import { MyTableEntity } from './interface'
 
 function MyTable<T>(props: MyTableEntity<T>) {
   const {
     query,
     columns,
     baseURL,
-    softDelete,
-    multipleSoftDelete,
+    selectedMutation,
+    multiSelectedMutation,
     showModalDetail,
     isEdit = true,
     isDeleted = true,
@@ -42,13 +24,13 @@ function MyTable<T>(props: MyTableEntity<T>) {
   const [selectedRecords, setSelectedRecords] = useState<T[]>([])
 
   // custom columns
-  const newColumns: DataTableColumn<T>[] = [
+  const defaultColumns: DataTableColumn<T>[] = [
     ...columns,
     {
       accessor: 'actions',
       title: 'Actions',
       textAlignment: 'center',
-      width: 150,
+      width: 120,
       render: (info) => {
         // @ts-expect-error
         const id = String(info.id)
@@ -57,31 +39,45 @@ function MyTable<T>(props: MyTableEntity<T>) {
           <Group spacing={4} position="center" noWrap>
             {/* Check Edit */}
             {isEdit && (
-              <ActionIcon
-                color="blue"
-                component="a"
-                href={`${baseURL}/${id}/edit`}
-              >
-                <IconEdit size={18} />
-              </ActionIcon>
+              <Tooltip transition="pop" transitionDuration={300} label="Edit">
+                <ActionIcon
+                  size="lg"
+                  color="blue"
+                  component="a"
+                  href={`${baseURL}/${id}/edit`}
+                >
+                  <IconEdit size={22} />
+                </ActionIcon>
+              </Tooltip>
             )}
 
             {/* Check Deleted */}
             {isDeleted && (
-              <ActionIcon
-                color="red"
-                onClick={() =>
-                  openDeleteModal({ id, mutation: softDelete, query })
-                }
-              >
-                <IconTrash size={18} />
-              </ActionIcon>
+              <Tooltip transition="pop" transitionDuration={300} label="Hapus">
+                <ActionIcon
+                  size="lg"
+                  color="red"
+                  onClick={() =>
+                    openSelectModal({ id, mutation: selectedMutation, query })
+                  }
+                >
+                  <IconTrash size={22} />
+                </ActionIcon>
+              </Tooltip>
             )}
           </Group>
         )
       },
     },
   ]
+
+  let newColumns: DataTableColumn<T>[] = []
+
+  if (!isEdit && !isDeleted) {
+    newColumns = [...columns]
+  } else {
+    newColumns = defaultColumns
+  }
 
   return (
     <DataTable
@@ -91,7 +87,7 @@ function MyTable<T>(props: MyTableEntity<T>) {
       withColumnBorders
       striped={false}
       highlightOnHover
-      verticalAlignment="top"
+      verticalAlignment="center"
       verticalSpacing="md"
       horizontalSpacing="md"
       fetching={isFetching}
@@ -105,13 +101,13 @@ function MyTable<T>(props: MyTableEntity<T>) {
         items: (info) => [
           {
             key: 'detail',
-            icon: <IconEye size={14} />,
+            icon: <IconEye size={16} />,
             title: `Detail`,
             onClick: () => showModalDetail(info),
           },
           {
             key: 'edit',
-            icon: <IconEdit size={14} />,
+            icon: <IconEdit size={16} />,
             title: `Edit`,
             hidden: !isEdit,
             // @ts-ignore
@@ -120,17 +116,17 @@ function MyTable<T>(props: MyTableEntity<T>) {
           {
             key: 'delete',
             title: `Delete`,
-            icon: <IconTrashX size={14} />,
+            icon: <IconTrashX size={16} />,
             color: 'red',
             hidden:
               !isDeleted ||
               (selectedRecords.length !== 0 && selectedRecords.length > 1),
             onClick: () =>
-              openDeleteModal({
+              openSelectModal({
                 // @ts-ignore
                 id: info.id,
                 // @ts-ignore
-                mutation: softDelete,
+                mutation: selectedMutation,
                 // @ts-ignore
                 query,
               }),
@@ -145,14 +141,14 @@ function MyTable<T>(props: MyTableEntity<T>) {
               // @ts-ignore
               !selectedRecords.map((r) => r.id).includes(info.id),
             title: `Delete ${selectedRecords.length} selected records`,
-            icon: <IconTrash size={14} />,
+            icon: <IconTrash size={16} />,
             color: 'red',
             onClick: () =>
-              openDeleteSelectedModal({
+              openMultiSelectedModal({
                 // @ts-ignore
                 ids: selectedRecords?.map((e) => e.id),
                 // @ts-ignore
-                mutation: multipleSoftDelete,
+                mutation: multiSelectedMutation,
                 // @ts-ignore
                 query,
               }),
