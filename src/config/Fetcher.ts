@@ -2,6 +2,7 @@ import { showNotification } from '@mantine/notifications'
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import _ from 'lodash'
 import ms from 'ms'
+import Router from 'next/router'
 import { AXIOS_TIMEOUT } from './env'
 
 const timeout = ms(AXIOS_TIMEOUT)
@@ -14,12 +15,12 @@ function createAxios(baseURL: string, keyLocalStorage?: string) {
     instanceAxios.interceptors.request.use((config) => {
       const curConfig = { ...config }
 
+      const SESSION_TOKEN = localStorage.getItem(String(keyLocalStorage))
+
       // ALWAYS READ UPDATED TOKEN
       try {
         // @ts-expect-error
-        curConfig.headers.Authorization = `Bearer ${localStorage.getItem(
-          String(keyLocalStorage),
-        )}`
+        curConfig.headers.Authorization = `Bearer ${SESSION_TOKEN}`
       } catch (e) {
         console.log(e)
       }
@@ -46,16 +47,20 @@ function createAxios(baseURL: string, keyLocalStorage?: string) {
         500, 501, 502, 503, 504, 505, 506, 507, 508, 510, 511,
       ]
 
-      if (errorClientCode.includes(statusCode)) {
+      if (errorClientCode.includes(Number(statusCode))) {
         showNotification({
           title: `Client Error ${statusCode}`,
           message,
           disallowClose: true,
           color: 'red',
         })
+
+        if (statusCode === 401) {
+          Router.push('/login')
+        }
       }
 
-      if (errorServerCode.includes(statusCode)) {
+      if (errorServerCode.includes(Number(statusCode))) {
         const errMessage: any = error.response?.data ?? error.message
 
         showNotification({
@@ -67,7 +72,7 @@ function createAxios(baseURL: string, keyLocalStorage?: string) {
       }
 
       return Promise.reject(error)
-    },
+    }
   )
 
   return instanceAxios
