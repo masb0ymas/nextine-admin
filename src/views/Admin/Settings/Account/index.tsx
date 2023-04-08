@@ -1,8 +1,8 @@
-import PageHeader from '@core/components/PageHeader'
-import { capitalizeFirstLetter } from '@core/helpers/String'
 import { Divider, Paper, Tabs } from '@mantine/core'
-import { IconAdjustmentsAlt, IconUsers } from '@tabler/icons'
+import { IconAdjustmentsAlt, IconUsers } from '@tabler/icons-react'
 import { useRouter } from 'next/router'
+import PageHeader from '~/core/components/PageHeader'
+import { capitalizeFirstLetter } from '~/core/helpers/String'
 import SettingRoleTab from './Role'
 import SettingUserTab from './User'
 

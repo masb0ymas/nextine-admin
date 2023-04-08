@@ -1,3 +1,3 @@
-import InternalServer from 'layouts/containers/Error/InternalServer'
+import InternalServer from '~/layouts/containers/Error/InternalServer'
 
 export default InternalServer

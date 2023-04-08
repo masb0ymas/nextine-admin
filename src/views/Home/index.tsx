@@ -1,7 +1,6 @@
-import { ColorSchemeToggle } from '@core/components/ColorSchemeToggle/ColorSchemeToggle'
 import { Button, Container, createStyles, Group, Text } from '@mantine/core'
 import { GithubIcon } from '@mantine/ds'
-import React from 'react'
+import { ColorSchemeToggle } from '~/core/components/ColorSchemeToggle/ColorSchemeToggle'
 
 const BREAKPOINT = '@media (max-width: 755px)'
 
@@ -49,7 +48,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   controls: {
-    marginTop: theme.spacing.xl * 2,
+    marginTop: `calc(${theme.spacing.xl} * 2)`,
 
     [BREAKPOINT]: {
       marginTop: theme.spacing.xl,

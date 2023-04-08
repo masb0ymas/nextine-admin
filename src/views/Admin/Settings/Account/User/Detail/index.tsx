@@ -1,9 +1,8 @@
-/* eslint-disable react/no-danger */
-import { useStyleModal } from '@core/components/MyModal/MyModal'
-import { formatDateTime } from '@core/helpers/Date'
-import formatPhone from '@core/helpers/Phone'
 import { Checkbox, Divider, Group, Stack, Text } from '@mantine/core'
-import { UserEntity } from 'data/entities/User'
+import { UserEntity } from '~/data/entities/User'
+import { useStyleModal } from '~/core/components/MyModal/MyModal'
+import { formatDateTime } from '~/core/helpers/Date'
+import formatPhone from '~/core/helpers/Phone'
 
 function DetailSettingUserModal({ data }: { data: UserEntity }) {
   const { classes } = useStyleModal()
@@ -54,6 +53,8 @@ function DetailSettingUserModal({ data }: { data: UserEntity }) {
           </Text>
           <Text size="sm">{data.Role?.name}</Text>
         </Group>
+
+        <Divider variant="dashed" />
 
         <Group>
           <Text className={classes.modalLabel} size="sm">

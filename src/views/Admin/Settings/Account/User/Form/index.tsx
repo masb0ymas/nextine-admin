@@ -1,6 +1,3 @@
-import CustomLoadingOverlay from '@core/components/CustomLoadingOverlay'
-import PageHeader from '@core/components/PageHeader'
-import Lists from '@core/helpers/Lists'
 import {
   Button,
   Checkbox,
@@ -12,18 +9,22 @@ import {
   Text,
   TextInput,
 } from '@mantine/core'
-import { useForm } from '@mantine/form'
+import { useForm, yupResolver } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { showNotification } from '@mantine/notifications'
-import { IconCheck } from '@tabler/icons'
+import { IconCheck } from '@tabler/icons-react'
 import { useMutation } from '@tanstack/react-query'
-import { UserAttributes } from 'data/entities/User'
-import useRole from 'data/query/Role/useRole'
-import useUserById from 'data/query/User/useUserById'
-import UserRepository from 'data/repository/UserRepository'
 import { get } from 'lodash'
 import Router, { useRouter } from 'next/router'
 import { useState } from 'react'
+import MyLoadingOverlay from '~/core/components/MyLoadingOverlay'
+import PageHeader from '~/core/components/PageHeader'
+import Lists from '~/core/helpers/Lists'
+import { UserAttributes } from '~/data/entities/User'
+import useRole from '~/data/query/Role/useRole'
+import useUserById from '~/data/query/User/useUserById'
+import UserRepository from '~/data/repository/UserRepository'
+import userSchema from '~/data/validation/master/user'
 
 interface AbstractFormProps {
   initialValues: Record<string, any>
@@ -86,13 +87,16 @@ function AbstractForm({
 
   return (
     <div style={{ position: 'relative' }}>
-      <CustomLoadingOverlay visible={visible} />
+      <MyLoadingOverlay visible={visible} />
 
       <PageHeader
-        targetURL={`${baseURL}?tabs=user`}
         title="Account"
         subTitle={`${isEdit ? 'Edit' : 'Add'} User`}
+        onBack={() => Router.back()}
       />
+
+      <Divider variant="dashed" my="sm" />
+
       <form onSubmit={form.onSubmit(onFormSubmit)}>
         <Grid gutter="xl" columns={24}>
           <Grid.Col xs={24} md={16}>
@@ -167,9 +171,26 @@ function AbstractForm({
 
               <Divider variant="dashed" />
 
-              <Button fullWidth mt="xl" radius="md" type="submit">
-                {isEdit ? 'Submit Changes' : 'Submit'}
-              </Button>
+              <Grid columns={24}>
+                <Grid.Col xs={12}>
+                  <Button
+                    fullWidth
+                    mt="xl"
+                    radius="md"
+                    color="red"
+                    variant="light"
+                    onClick={() => Router.push(baseURL)}
+                  >
+                    Back
+                  </Button>
+                </Grid.Col>
+
+                <Grid.Col xs={12}>
+                  <Button fullWidth mt="xl" radius="md" type="submit">
+                    {isEdit ? 'Save Changes' : 'Save'}
+                  </Button>
+                </Grid.Col>
+              </Grid>
             </Paper>
 
             <Divider my="lg" variant="dotted" />
@@ -222,18 +243,7 @@ function FormAdd() {
         confirmNewPassword: '',
         isActive: false,
       }}
-      validate={{
-        fullname: (value: string) =>
-          value.length < 3 ? 'Nama minimal 3 karakter' : null,
-        email: (value: string) =>
-          /^\S+@\S+$/.test(value) ? null : 'Invalid email',
-        newPassword: (value: string) =>
-          value.length < 6 ? 'Password minimal 6 karakter' : null,
-        confirmNewPassword: (value: string, values: any) =>
-          value !== values.newPassword ? 'Passwords did not match' : null,
-        RoleId: (value: string) =>
-          value.length < 1 ? 'Role harus diisi' : null,
-      }}
+      validate={yupResolver(userSchema.create)}
       mutation={createData}
     />
   )
@@ -259,7 +269,7 @@ function FormEdit() {
   if (isLoading) {
     return (
       <div>
-        <CustomLoadingOverlay visible />
+        <MyLoadingOverlay visible />
       </div>
     )
   }
@@ -271,16 +281,7 @@ function FormEdit() {
         newPassword: undefined,
         confirmNewPassword: undefined,
       }}
-      validate={{
-        fullname: (value: string) =>
-          value.length < 3 ? 'Nama minimal 3 karakter' : null,
-        email: (value: string) =>
-          /^\S+@\S+$/.test(value) ? null : 'Invalid email',
-        confirmNewPassword: (value: string, values: any) =>
-          value !== values.newPassword ? 'Passwords did not match' : null,
-        RoleId: (value: string) =>
-          value.length < 1 ? 'Role harus diisi' : null,
-      }}
+      validate={yupResolver(userSchema.create)}
       isEdit={isEdit}
       mutation={updateData}
     />

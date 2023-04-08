@@ -1,8 +1,3 @@
-import { useStyleModal } from '@core/components/MyModal/MyModal'
-import MyTable from '@core/components/MyTable/MyTable'
-import { formatDateTime } from '@core/helpers/Date'
-import formatPhone from '@core/helpers/Phone'
-import useDebounce from '@core/hooks/useDebounce/useDebounce'
 import {
   Button,
   Checkbox,
@@ -11,26 +6,31 @@ import {
   Input,
   useMantineTheme,
 } from '@mantine/core'
+import { useDebouncedValue } from '@mantine/hooks'
 import { openModal } from '@mantine/modals'
-import { IconPlus, IconSearch } from '@tabler/icons'
+import { IconPlus, IconSearch } from '@tabler/icons-react'
 import { useMutation } from '@tanstack/react-query'
-import { UserEntity } from 'data/entities/User'
-import useUser from 'data/query/User/useUser'
-import UserRepository from 'data/repository/UserRepository'
-import { queryClient } from 'layouts/core'
 import { DataTableColumn } from 'mantine-datatable'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { useStyleModal } from '~/core/components/MyModal/MyModal'
+import MyTable from '~/core/components/MyTable/MyTable'
+import { formatDateTime } from '~/core/helpers/Date'
+import formatPhone from '~/core/helpers/Phone'
+import { UserEntity } from '~/data/entities/User'
+import useUser from '~/data/query/User/useUser'
+import UserRepository from '~/data/repository/UserRepository'
+import { queryClient } from '~/layouts/core'
 import DetailSettingUserModal from './Detail'
 
-function SettingUserTab() {
+function AccountUserTab() {
   const { classes } = useStyleModal()
 
   const [page, setPage] = useState(1)
   const [pageSize] = useState(10)
 
   const [name, setName] = useState(undefined)
-  const debouncedName = useDebounce(name, 500)
+  const [debouncedName] = useDebouncedValue(name, 500)
 
   const baseURL = '/admin/settings/account/user'
 
@@ -170,7 +170,7 @@ function SettingUserTab() {
           openModal({
             centered: true,
             title: `Detail User`,
-            classNames: { modal: classes.modal, title: classes.modalTitle },
+            classNames: { title: classes.modalTitle },
             children: <DetailSettingUserModal data={info} />,
           })
         }}
@@ -183,4 +183,4 @@ function SettingUserTab() {
   )
 }
 
-export default SettingUserTab
+export default AccountUserTab

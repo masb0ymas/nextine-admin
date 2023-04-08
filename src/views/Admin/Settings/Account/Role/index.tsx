@@ -1,27 +1,27 @@
-import { useStyleModal } from '@core/components/MyModal/MyModal'
-import MyTable from '@core/components/MyTable/MyTable'
-import useDebounce from '@core/hooks/useDebounce/useDebounce'
 import { Button, Divider, Grid, Input } from '@mantine/core'
+import { useDebouncedValue } from '@mantine/hooks'
 import { openModal } from '@mantine/modals'
-import { IconPlus, IconSearch } from '@tabler/icons'
+import { IconPlus, IconSearch } from '@tabler/icons-react'
 import { useMutation } from '@tanstack/react-query'
-import { RoleEntity } from 'data/entities/Role'
-import useRole from 'data/query/Role/useRole'
-import RoleRepository from 'data/repository/RoleRepository'
-import { queryClient } from 'layouts/core'
 import { DataTableColumn } from 'mantine-datatable'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { useStyleModal } from '~/core/components/MyModal/MyModal'
+import MyTable from '~/core/components/MyTable/MyTable'
+import { RoleEntity } from '~/data/entities/Role'
+import useRole from '~/data/query/Role/useRole'
+import RoleRepository from '~/data/repository/RoleRepository'
+import { queryClient } from '~/layouts/core'
 import DetailSettingRoleModal from './Detail'
 
-function SettingRoleTab() {
+function AccountRoleTab() {
   const { classes } = useStyleModal()
 
   const [page, setPage] = useState(1)
   const [pageSize] = useState(10)
 
   const [name, setName] = useState(undefined)
-  const debouncedName = useDebounce(name, 500)
+  const [debouncedName] = useDebouncedValue(name, 500)
 
   const baseURL = '/admin/settings/account/role'
 
@@ -113,7 +113,7 @@ function SettingRoleTab() {
           openModal({
             centered: true,
             title: `Detail Role`,
-            classNames: { modal: classes.modal, title: classes.modalTitle },
+            classNames: { title: classes.modalTitle },
             children: <DetailSettingRoleModal data={info} />,
           })
         }}
@@ -126,4 +126,4 @@ function SettingRoleTab() {
   )
 }
 
-export default SettingRoleTab
+export default AccountRoleTab

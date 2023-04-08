@@ -1,20 +1,20 @@
-import { ColorSchemeToggle } from '@core/components/ColorSchemeToggle/ColorSchemeToggle'
 import {
-  createStyles,
-  Paper,
-  Title,
-  Text,
-  TextInput,
+  Anchor,
+  Box,
   Button,
+  Center,
   Container,
   Group,
-  Anchor,
-  Center,
-  Box,
+  Paper,
+  Text,
+  TextInput,
+  Title,
+  createStyles,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
-import { IconArrowLeft, IconCheck } from '@tabler/icons'
+import { IconArrowLeft, IconCheck, IconMail } from '@tabler/icons-react'
 import Link from 'next/link'
+import { ColorSchemeToggle } from '~/core/components/ColorSchemeToggle/ColorSchemeToggle'
 
 const useStyles = createStyles((theme) => ({
   title: {
@@ -50,7 +50,12 @@ export function ForgotPassPage() {
       </Text>
 
       <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
-        <TextInput label="Your email" placeholder="me@mantine.dev" required />
+        <TextInput
+          label="Your email"
+          placeholder="me@mantine.dev"
+          required
+          icon={<IconMail size={18} />}
+        />
 
         <Group position="apart" mt="lg" className={classes.controls}>
           <Link href="/login" passHref>
@@ -67,7 +72,6 @@ export function ForgotPassPage() {
               showNotification({
                 title: 'Request Reset Password',
                 message: 'Please check your email for the next steps',
-                disallowClose: true,
                 color: 'green',
                 icon: <IconCheck size={16} />,
               })

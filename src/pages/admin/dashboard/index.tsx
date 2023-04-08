@@ -1,3 +1,3 @@
-import DashboardPage from 'views/Admin/Dashboard'
+import DashboardPage from '~/views/Admin/Dashboard'
 
 export default DashboardPage

@@ -1,20 +1,19 @@
-import { RouterTransition } from '@core/components/RouterTransition'
 import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
 } from '@mantine/core'
 import { ModalsProvider } from '@mantine/modals'
-import { NotificationsProvider } from '@mantine/notifications'
-import { BRAND } from 'config/env'
+import { Notifications } from '@mantine/notifications'
 import { getCookie, setCookie } from 'cookies-next'
-import getSiteLayout from 'layouts/core'
 import _ from 'lodash'
-import { GetServerSidePropsContext } from 'next'
-import { AppProps } from 'next/app'
+import NextApp, { AppContext, AppProps } from 'next/app'
 import Head from 'next/head'
 import { useState } from 'react'
 import slugify from 'slugify'
+import { BRAND } from '~/config/env'
+import { RouterTransition } from '~/core/components/RouterTransition'
+import getSiteLayout from '~/layouts/core'
 
 const brand = _.toLower(slugify(BRAND))
 const cookieName = `${brand}-color-scheme`
@@ -25,7 +24,9 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const toggleColorScheme = (value?: ColorScheme) => {
     const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark')
     setColorScheme(nextColorScheme)
-    setCookie(cookieName, nextColorScheme, { maxAge: 60 * 60 * 24 * 30 })
+    setCookie(cookieName, nextColorScheme, {
+      maxAge: 60 * 60 * 24 * 30,
+    })
   }
 
   const siteLayout = getSiteLayout(props)
@@ -54,20 +55,24 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           <RouterTransition />
 
           {/* notification provider */}
-          <NotificationsProvider position="top-right" zIndex={2077}>
-            {/* modal provider */}
-            <ModalsProvider>
-              {/* render site layout */}
-              {siteLayout}
-              {/* render site layout */}
-            </ModalsProvider>
-          </NotificationsProvider>
+          <Notifications position="top-right" zIndex={2077} />
+
+          {/* modal provider */}
+          <ModalsProvider>
+            {/* render site layout */}
+            {siteLayout}
+            {/* render site layout */}
+          </ModalsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </>
   )
 }
 
-App.getInitialProps = ({ ctx }: { ctx: GetServerSidePropsContext }) => ({
-  colorScheme: getCookie(cookieName, ctx) || 'dark',
-})
+App.getInitialProps = async (appContext: AppContext) => {
+  const appProps = await NextApp.getInitialProps(appContext)
+  return {
+    ...appProps,
+    colorScheme: getCookie(cookieName, appContext.ctx) || 'light',
+  }
+}

@@ -1,12 +1,12 @@
 import { createStyles, Group, Paper, SimpleGrid, Text } from '@mantine/core'
 import {
-  IconUserPlus,
+  IconArrowDownRight,
+  IconArrowUpRight,
+  IconCoin,
   IconDiscount2,
   IconReceipt2,
-  IconCoin,
-  IconArrowUpRight,
-  IconArrowDownRight,
-} from '@tabler/icons'
+  IconUserPlus,
+} from '@tabler/icons-react'
 
 const useStyles = createStyles((theme) => ({
   root: {

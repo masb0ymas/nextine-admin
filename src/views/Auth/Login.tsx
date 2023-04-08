@@ -1,6 +1,3 @@
-import { ColorSchemeToggle } from '@core/components/ColorSchemeToggle/ColorSchemeToggle'
-import MyLoadingOverlay from '@core/components/MyLoadingOverlay'
-import { useAuthSession } from '@core/hooks/useAuthSession/useAuthSession'
 import {
   Anchor,
   Button,
@@ -13,17 +10,20 @@ import {
   TextInput,
   Title,
 } from '@mantine/core'
-import { useForm } from '@mantine/form'
+import { useForm, yupResolver } from '@mantine/form'
 import { showNotification } from '@mantine/notifications'
-import { IconCheck } from '@tabler/icons'
+import { IconCheck, IconLockOpen, IconMail } from '@tabler/icons-react'
 import { useMutation } from '@tanstack/react-query'
-import { LOCAL_STORAGE_SESSION } from 'config/env'
-import { LoginAttributes } from 'data/entities/User'
-import AuthRepository from 'data/repository/AuthRepository'
 import _ from 'lodash'
-import Link from 'next/link'
 import Router from 'next/router'
 import { useState } from 'react'
+import { BRAND, LOCAL_STORAGE_SESSION } from '~/config/env'
+import { ColorSchemeToggle } from '~/core/components/ColorSchemeToggle/ColorSchemeToggle'
+import MyLoadingOverlay from '~/core/components/MyLoadingOverlay'
+import { useAuthSession } from '~/core/hooks/useAuthSession/useAuthSession'
+import { LoginAttributes } from '~/data/entities/User'
+import AuthRepository from '~/data/repository/AuthRepository'
+import authSchema from '~/data/validation/auth'
 
 function LoginPage() {
   const [visible, setVisible] = useState(false)
@@ -34,16 +34,11 @@ function LoginPage() {
     initialValues: { password: '', email: '' },
 
     // functions will be used to validate values at corresponding key
-    validate: {
-      email: (value: string) =>
-        /^\S+@\S+$/.test(value) ? null : 'Invalid email',
-      password: (value: string) =>
-        value.length < 8 ? 'Password must have at least 8 letters' : null,
-    },
+    validate: yupResolver(authSchema.login),
   })
 
   const postLogin = useMutation((data: LoginAttributes) =>
-    AuthRepository.login(data),
+    AuthRepository.login(data)
   )
 
   const onFormSubmit = async () => {
@@ -61,8 +56,8 @@ function LoginPage() {
       showNotification({
         title: `Welcome back, ${fullname}`,
         message,
-        disallowClose: true,
         color: 'green',
+        withCloseButton: false,
         icon: <IconCheck size={16} />,
       })
 
@@ -90,7 +85,7 @@ function LoginPage() {
           fontWeight: 900,
         })}
       >
-        Welcome back!
+        {BRAND}
       </Title>
       <Text color="dimmed" size="sm" align="center" mt={5}>
         {`Do not have an account yet? `}
@@ -109,22 +104,26 @@ function LoginPage() {
           <TextInput
             label="Email"
             placeholder="you@mantine.dev"
+            icon={<IconMail size={18} />}
+            required
             {...form.getInputProps('email')}
           />
 
           <PasswordInput
             label="Password"
             placeholder="Your password"
-            mt="md"
+            mt="sm"
+            icon={<IconLockOpen size={18} />}
+            required
             {...form.getInputProps('password')}
           />
 
           <Group position="apart" mt="md">
             <Checkbox label="Remember me" />
 
-            <Link href="/forgot-password" passHref>
-              <Anchor<'a'> size="sm">Forgot password?</Anchor>
-            </Link>
+            <Anchor href="/forgot-password" size="sm">
+              Forgot password?
+            </Anchor>
           </Group>
 
           <Button fullWidth mt="xl" type="submit" loading={visible}>

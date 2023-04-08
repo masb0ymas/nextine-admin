@@ -1,19 +1,18 @@
-import CustomLoadingOverlay from '@core/components/CustomLoadingOverlay'
-import PageHeader from '@core/components/PageHeader'
 import { Button, Divider, Grid, Paper, Text, TextInput } from '@mantine/core'
 import { useForm, yupResolver } from '@mantine/form'
 import { showNotification } from '@mantine/notifications'
-import { IconCheck } from '@tabler/icons'
+import { IconCheck } from '@tabler/icons-react'
 import { useMutation } from '@tanstack/react-query'
-import { RoleAttributes } from 'data/entities/Role'
-import useRoleById from 'data/query/Role/useRoleById'
-import RoleRepository from 'data/repository/RoleRepository'
-import roleSchema from 'data/validation/master/role'
-
-import { queryClient } from 'layouts/core'
 import { get } from 'lodash'
 import Router, { useRouter } from 'next/router'
 import { useState } from 'react'
+import MyLoadingOverlay from '~/core/components/MyLoadingOverlay'
+import PageHeader from '~/core/components/PageHeader'
+import { RoleAttributes } from '~/data/entities/Role'
+import useRoleById from '~/data/query/Role/useRoleById'
+import RoleRepository from '~/data/repository/RoleRepository'
+import roleSchema from '~/data/validation/master/role'
+import { queryClient } from '~/layouts/core'
 
 interface AbstractFormProps {
   initialValues: Record<string, any>
@@ -65,13 +64,16 @@ function AbstractForm({
 
   return (
     <div style={{ position: 'relative' }}>
-      <CustomLoadingOverlay visible={visible} />
+      <MyLoadingOverlay visible={visible} />
 
       <PageHeader
-        targetURL={baseURL}
         title="Account"
         subTitle={`${isEdit ? 'Edit' : 'Add'} Role`}
+        onBack={() => Router.back()}
       />
+
+      <Divider variant="dashed" my="sm" />
+
       <form onSubmit={form.onSubmit(onFormSubmit)}>
         <Grid gutter="xl" columns={24}>
           <Grid.Col xs={24} md={16}>
@@ -97,9 +99,26 @@ function AbstractForm({
 
               <Divider variant="dashed" />
 
-              <Button fullWidth mt="xl" radius="md" type="submit">
-                {isEdit ? 'Submit Changes' : 'Submit'}
-              </Button>
+              <Grid columns={24}>
+                <Grid.Col xs={12}>
+                  <Button
+                    fullWidth
+                    mt="xl"
+                    radius="md"
+                    color="red"
+                    variant="light"
+                    onClick={() => Router.push(baseURL)}
+                  >
+                    Back
+                  </Button>
+                </Grid.Col>
+
+                <Grid.Col xs={12}>
+                  <Button fullWidth mt="xl" radius="md" type="submit">
+                    {isEdit ? 'Save Changes' : 'Save'}
+                  </Button>
+                </Grid.Col>
+              </Grid>
             </Paper>
           </Grid.Col>
         </Grid>
@@ -152,7 +171,7 @@ function FormEdit(props: any) {
   if (isLoading) {
     return (
       <div>
-        <CustomLoadingOverlay visible />
+        <MyLoadingOverlay visible />
       </div>
     )
   }
