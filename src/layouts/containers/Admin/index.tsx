@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import VerifyPage from '@core/components/VerifyPage'
-import { useAuthSession } from '@core/hooks/useAuthSession/useAuthSession'
 import { AppShell, Loader, useMantineTheme } from '@mantine/core'
 import _ from 'lodash'
 import { ReactComponentLike } from 'prop-types'
 import React, { useState } from 'react'
+import VerifyPage from '~/core/components/VerifyPage'
+import { useAuthSession } from '~/core/hooks/useAuthSession/useAuthSession'
 import AdminFooterLayout from './Footer'
 import AdminHeaderLayout from './Header'
 import AdminSidebarLayout from './Sidebar'

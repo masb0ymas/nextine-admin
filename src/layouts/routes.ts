@@ -1,4 +1,4 @@
-import dashboardRoutes from 'layouts/routes/admin/dashboard'
+import dashboardRoutes from './routes/admin/dashboard'
 import settingRoutes from './routes/admin/setting'
 
 // @ts-expect-error

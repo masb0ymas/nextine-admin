@@ -1,4 +1,3 @@
-import { ColorSchemeToggle } from '@core/components/ColorSchemeToggle/ColorSchemeToggle'
 import {
   Burger,
   Code,
@@ -9,8 +8,9 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core'
-import { BRAND } from 'config/env'
 import React from 'react'
+import { BRAND } from '~/config/env'
+import { ColorSchemeToggle } from '~/core/components/ColorSchemeToggle/ColorSchemeToggle'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const useStyles = createStyles((theme, _params, _getRef) => ({
@@ -18,7 +18,7 @@ const useStyles = createStyles((theme, _params, _getRef) => ({
     backgroundColor: theme.fn.lighten(
       theme.fn.variant({ variant: 'filled', color: theme.primaryColor })
         .background!,
-      0.1,
+      0.1
     ),
     color: theme.white,
     fontWeight: 700,

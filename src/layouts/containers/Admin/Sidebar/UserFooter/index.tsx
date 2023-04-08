@@ -1,4 +1,3 @@
-import { useAuthSession } from '@core/hooks/useAuthSession/useAuthSession'
 import {
   Avatar,
   Box,
@@ -18,23 +17,19 @@ import {
   IconLogout,
   IconUser,
   IconX,
-} from '@tabler/icons'
+} from '@tabler/icons-react'
 import { useMutation } from '@tanstack/react-query'
-import { LOCAL_STORAGE_SESSION } from 'config/env'
-import useVerifySession from 'data/query/useVerifySession'
-import AuthRepository from 'data/repository/AuthRepository'
 import _ from 'lodash'
 import Router from 'next/router'
-import React from 'react'
-
-// const defaultPicture =
-//   'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80'
-const githubPicture =
-  'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
+import { LOCAL_STORAGE_SESSION } from '~/config/env'
+import { getInitialName } from '~/core/helpers/Formatter'
+import { useAuthSession } from '~/core/hooks/useAuthSession/useAuthSession'
+import useVerifySession from '~/data/query/useVerifySession'
+import AuthRepository from '~/data/repository/AuthRepository'
 
 const useStyles = createStyles(() => ({
   elipsis: {
-    width: 150,
+    width: 115,
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
@@ -67,8 +62,8 @@ function UserFooter() {
       showNotification({
         title: `See you again!`,
         message,
-        disallowClose: true,
         color: 'green',
+        withCloseButton: false,
         icon: <IconCheck size={16} />,
       })
 
@@ -114,18 +109,29 @@ function UserFooter() {
           },
         }}
       >
-        <Menu transition="pop" withArrow position={match ? 'top-end' : 'right'}>
+        <Menu
+          withArrow
+          transitionProps={{ transition: 'pop', duration: 150 }}
+          position={match ? 'top-end' : 'right'}
+        >
           <Menu.Target>
             <Group>
-              {!match && <Avatar src={githubPicture} radius="xl" />}
-              <Box sx={{ flex: 1 }}>
-                <Text size="sm" weight={500}>
-                  {`Hi, ${userAuth?.data?.fullname}`}
-                </Text>
-                <Text color="dimmed" size="xs" className={classes.elipsis}>
-                  {userAuth?.data?.email}
-                </Text>
-              </Box>
+              {!match && (
+                <Avatar color="cyan" radius="xl">
+                  {userAuth.data && getInitialName(userAuth.data?.fullname)}
+                </Avatar>
+              )}
+
+              {userAuth.data && (
+                <Box sx={{ flex: 1 }}>
+                  <Text size="sm" weight={500} className={classes.elipsis}>
+                    {`Hi, ${userAuth?.data?.fullname}`}
+                  </Text>
+                  <Text color="dimmed" size="xs" className={classes.elipsis}>
+                    {userAuth?.data?.email}
+                  </Text>
+                </Box>
+              )}
 
               {theme.dir === 'ltr' ? (
                 <IconChevronRight size={18} />

@@ -1,17 +1,16 @@
 import { createStyles, NavLink } from '@mantine/core'
-import useMenuSidebar, { MainLinkProps } from 'data/query/useMenuSidebar'
 import _ from 'lodash'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import useMenuSidebar, { MainLinkProps } from '~/data/query/useMenuSidebar'
 
 const useStyles = createStyles((theme) => ({
   link: {
     fontWeight: 500,
-    display: 'block',
+    // display: 'block',
     textDecoration: 'none',
     padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
     paddingLeft: '20px',
+    paddingRight: '20px',
     marginLeft: '20px',
     fontSize: theme.fontSizes.sm,
     color:
@@ -38,30 +37,29 @@ function MainLink(item: MainLinkProps) {
   const router = useRouter()
 
   return (
-    <Link href={item.link ?? '#'} passHref key={item.label}>
-      <NavLink
-        key={item.label}
-        label={item.label}
-        icon={item.icon}
-        component="a"
-        childrenOffset={0}
-        active={router.pathname === item.link}
-      >
-        {!_.isEmpty(item.links) &&
-          _.isArray(item.links) &&
-          item.links.map((child) => (
-            <Link href={child.link ?? '#'} passHref key={child.label}>
-              <NavLink
-                key={child.label}
-                label={child.label}
-                component="a"
-                className={classes.link}
-                active={router.pathname === child.link}
-              />
-            </Link>
-          ))}
-      </NavLink>
-    </Link>
+    <NavLink
+      key={item.label}
+      label={item.label}
+      icon={item.icon}
+      component="a"
+      href={item.link ?? '#'}
+      childrenOffset={0}
+      active={router.pathname === item.link}
+    >
+      {!_.isEmpty(item.links) &&
+        _.isArray(item.links) &&
+        item.links.map((child) => (
+          <NavLink
+            key={child.label}
+            label={child.label}
+            icon={child.icon}
+            component="a"
+            href={child.link ?? '#'}
+            className={classes.link}
+            active={router.pathname === child.link}
+          />
+        ))}
+    </NavLink>
   )
 }
 

@@ -15,7 +15,7 @@ function AdminSidebarLayout(props: AdminSidebarLayoutProps) {
       p="md"
       hiddenBreakpoint="sm"
       hidden={!opened}
-      width={{ sm: 240, md: 290, lg: 300 }}
+      width={{ sm: 240, md: 260 }}
     >
       <Navbar.Section grow component={ScrollArea} mx="-xs" px="xs">
         <AdminNavbarMenus />

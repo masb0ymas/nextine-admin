@@ -1,9 +1,9 @@
-import matchPath from '@core/helpers/matchPath'
-import globalRoutes from 'layouts/routes'
-import { AppProps } from 'next/app'
-import React from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { AppProps } from 'next/app'
+import React from 'react'
+import matchPath from '~/core/helpers/matchPath'
+import globalRoutes from '~/layouts/routes'
 
 export const queryClient = new QueryClient({
   defaultOptions: {

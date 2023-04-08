@@ -1,6 +1,5 @@
 import { Center, Footer } from '@mantine/core'
-import { BRAND } from 'config/env'
-import React from 'react'
+import { BRAND } from '~/config/env'
 
 function AdminFooterLayout() {
   const dateNow = new Date()

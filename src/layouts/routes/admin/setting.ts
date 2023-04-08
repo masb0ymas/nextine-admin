@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 
-const AdminContainer = dynamic(() => import('layouts/containers/Admin'))
+const AdminContainer = dynamic(() => import('~/layouts/containers/Admin'))
 
 const routes = [
   {
