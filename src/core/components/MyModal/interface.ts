@@ -1,5 +1,5 @@
-import useUrlQuery from '@core/hooks/useUrlQuery/useUrlQuery'
 import { QueryObserverBaseResult, useMutation } from '@tanstack/react-query'
+import useUrlQuery from '~/core/hooks/useUrlQuery/useUrlQuery'
 
 type Query = QueryObserverBaseResult & {
   data: any[]

@@ -1,8 +1,9 @@
-import { showNotification } from '@mantine/notifications'
+import { notifications } from '@mantine/notifications'
+import { IconX } from '@tabler/icons-react'
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import _ from 'lodash'
-import ms from 'ms'
 import Router from 'next/router'
+import { ms } from '~/core/helpers/Formatter'
 import { AXIOS_TIMEOUT } from './env'
 
 const timeout = ms(AXIOS_TIMEOUT)
@@ -19,7 +20,6 @@ function createAxios(baseURL: string, keyLocalStorage?: string) {
 
       // ALWAYS READ UPDATED TOKEN
       try {
-        // @ts-expect-error
         curConfig.headers.Authorization = `Bearer ${SESSION_TOKEN}`
       } catch (e) {
         console.log(e)
@@ -48,11 +48,12 @@ function createAxios(baseURL: string, keyLocalStorage?: string) {
       ]
 
       if (errorClientCode.includes(Number(statusCode))) {
-        showNotification({
-          title: `Client Error ${statusCode}`,
+        notifications.show({
+          title: `Client Error : ${statusCode}`,
           message,
-          disallowClose: true,
           color: 'red',
+          withCloseButton: false,
+          icon: <IconX size={16} />,
         })
 
         if (statusCode === 401) {
@@ -63,11 +64,12 @@ function createAxios(baseURL: string, keyLocalStorage?: string) {
       if (errorServerCode.includes(Number(statusCode))) {
         const errMessage: any = error.response?.data ?? error.message
 
-        showNotification({
-          title: `Server Error ${statusCode}`,
+        notifications.show({
+          title: `Server Error : ${statusCode}`,
           message: errMessage,
-          disallowClose: true,
           color: 'red',
+          withCloseButton: false,
+          icon: <IconX size={16} />,
         })
       }
 

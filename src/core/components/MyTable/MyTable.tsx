@@ -1,5 +1,5 @@
 import { ActionIcon, Group, Tooltip } from '@mantine/core'
-import { IconEdit, IconEye, IconTrash, IconTrashX } from '@tabler/icons'
+import { IconEdit, IconEye, IconTrash, IconTrashX } from '@tabler/icons-react'
 import { DataTable, DataTableColumn } from 'mantine-datatable'
 import Router from 'next/router'
 import { useState } from 'react'
@@ -24,7 +24,7 @@ function MyTable<T>(props: MyTableEntity<T>) {
   const [selectedRecords, setSelectedRecords] = useState<T[]>([])
 
   // custom columns
-  const defaultColumns: DataTableColumn<T>[] = [
+  const defaultColumns: DataTableColumn<T | any>[] = [
     ...columns,
     {
       accessor: 'actions',
@@ -32,14 +32,16 @@ function MyTable<T>(props: MyTableEntity<T>) {
       textAlignment: 'center',
       width: 120,
       render: (info) => {
-        // @ts-expect-error
         const id = String(info.id)
 
         return (
           <Group spacing={4} position="center" noWrap>
             {/* Check Edit */}
             {isEdit && (
-              <Tooltip transition="pop" transitionDuration={300} label="Edit">
+              <Tooltip
+                transitionProps={{ transition: 'pop', duration: 300 }}
+                label="Edit"
+              >
                 <ActionIcon
                   size="lg"
                   color="blue"
@@ -53,11 +55,15 @@ function MyTable<T>(props: MyTableEntity<T>) {
 
             {/* Check Deleted */}
             {isDeleted && (
-              <Tooltip transition="pop" transitionDuration={300} label="Hapus">
+              <Tooltip
+                transitionProps={{ transition: 'pop', duration: 3000 }}
+                label="Hapus"
+              >
                 <ActionIcon
                   size="lg"
                   color="red"
                   onClick={() =>
+                    // @ts-expect-error
                     openSelectModal({ id, mutation: selectedMutation, query })
                   }
                 >
@@ -71,7 +77,7 @@ function MyTable<T>(props: MyTableEntity<T>) {
     },
   ]
 
-  let newColumns: DataTableColumn<T>[] = []
+  let newColumns: DataTableColumn<T | any>[] = []
 
   if (!isEdit && !isDeleted) {
     newColumns = [...columns]
@@ -123,11 +129,9 @@ function MyTable<T>(props: MyTableEntity<T>) {
               (selectedRecords.length !== 0 && selectedRecords.length > 1),
             onClick: () =>
               openSelectModal({
-                // @ts-ignore
                 id: info.id,
-                // @ts-ignore
+                // @ts-expect-error
                 mutation: selectedMutation,
-                // @ts-ignore
                 query,
               }),
           },
@@ -145,11 +149,10 @@ function MyTable<T>(props: MyTableEntity<T>) {
             color: 'red',
             onClick: () =>
               openMultiSelectedModal({
-                // @ts-ignore
+                // @ts-expect-error
                 ids: selectedRecords?.map((e) => e.id),
-                // @ts-ignore
+                // @ts-expect-error
                 mutation: multiSelectedMutation,
-                // @ts-ignore
                 query,
               }),
           },

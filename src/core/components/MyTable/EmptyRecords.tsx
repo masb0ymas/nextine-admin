@@ -1,5 +1,5 @@
 import { Center, Stack, Text, ThemeIcon } from '@mantine/core'
-import { IconDatabaseOff } from '@tabler/icons'
+import { IconDatabaseOff } from '@tabler/icons-react'
 
 function EmptyRecords() {
   return (
@@ -9,7 +9,7 @@ function EmptyRecords() {
           <IconDatabaseOff />
         </ThemeIcon>
 
-        <Text>No records</Text>
+        <Text color="dimmed">No records</Text>
       </Stack>
     </Center>
   )

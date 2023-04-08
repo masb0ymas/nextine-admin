@@ -106,7 +106,7 @@ class ArrayQuery {
           [this.keyId]: key,
           [this.keyValue]: val,
         }
-      }),
+      })
     )
   }
 }

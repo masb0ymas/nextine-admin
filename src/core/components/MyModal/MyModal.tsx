@@ -1,7 +1,7 @@
 import { createStyles, Text } from '@mantine/core'
 import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
-import { IconCheck } from '@tabler/icons'
+import { IconCheck } from '@tabler/icons-react'
 import _ from 'lodash'
 import {
   OpenMultiSelectedModalEntity,
@@ -69,7 +69,7 @@ export const openSelectModal = (values: OpenSelectedModalEntity) => {
  * @returns
  */
 export const openMultiSelectedModal = (
-  values: OpenMultiSelectedModalEntity,
+  values: OpenMultiSelectedModalEntity
 ) => {
   const { ids, mutation, query, title, labelConfirm, labelCancel } = values
 

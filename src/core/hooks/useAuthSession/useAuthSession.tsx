@@ -1,7 +1,7 @@
-import useVerifySession from 'data/query/useVerifySession'
 import _ from 'lodash'
 import Router from 'next/router'
 import { useEffect } from 'react'
+import useVerifySession from '~/data/query/useVerifySession'
 
 export function useAuthSession() {
   const { data, isLoading, isFetching, error } = useVerifySession()

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import queryString from 'query-string'
+import qs from 'qs'
 import { useMemo, useRef, useState } from 'react'
 import QueryUrl, { QueryUrlOptions } from './QueryUrl'
 
@@ -18,7 +18,7 @@ function useUrlQuery(_options?: UseUrlQueryOptions) {
   const getStringQuery = useMemo(
     () =>
       function getStringQuery(url?: string) {
-        const strQuery = queryString.stringify({
+        const strQuery = qs.stringify({
           filtered: queryUrl.filtered.toArrayStringify(),
           sorted: queryUrl.sorted.toArrayStringify(),
           ...queryUrl.query.get(),
@@ -29,7 +29,7 @@ function useUrlQuery(_options?: UseUrlQueryOptions) {
         }
         return [url, strQuery].join('')
       },
-    [count],
+    [count]
   )
 
   const extraSetter = useMemo(() => {
