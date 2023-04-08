@@ -1,4 +1,4 @@
-import { UserAttributes } from 'data/entities/User'
+import { UserAttributes } from '~/data/entities/User'
 import BaseRepository, { MultipleIdsEntity } from './BaseRepository'
 
 const repo = new BaseRepository({ endpoint: '/user' })

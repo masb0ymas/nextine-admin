@@ -1,11 +1,9 @@
-import { BASE_API_URL } from '@core/constants/ConstBaseURL'
-import useUrlQuery, {
-  UseUrlQueryOptions,
-} from '@core/hooks/useUrlQuery/useUrlQuery'
-import { useQuery, UseQueryOptions } from '@tanstack/react-query'
-import { AxiosError } from 'axios'
-import { RoleEntity } from 'data/entities/Role'
-import RoleRepository from 'data/repository/RoleRepository'
+import { UseQueryOptions, useQuery } from "@tanstack/react-query"
+import { AxiosError } from "axios"
+import { BASE_API_URL } from "~/core/constants/ConstBaseURL"
+import useUrlQuery, { UseUrlQueryOptions } from "~/core/hooks/useUrlQuery/useUrlQuery"
+import { RoleEntity } from "~/data/entities/Role"
+import RoleRepository from "~/data/repository/RoleRepository"
 
 type UseResult = RoleEntity
 

@@ -1,11 +1,11 @@
-import { BASE_API_URL } from '@core/constants/ConstBaseURL'
+import { UseQueryOptions, useQuery } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
+import { BASE_API_URL } from '~/core/constants/ConstBaseURL'
 import useUrlQuery, {
   UseUrlQueryOptions,
-} from '@core/hooks/useUrlQuery/useUrlQuery'
-import { useQuery, UseQueryOptions } from '@tanstack/react-query'
-import { AxiosError } from 'axios'
-import { UserEntity } from 'data/entities/User'
-import UserRepository from 'data/repository/UserRepository'
+} from '~/core/hooks/useUrlQuery/useUrlQuery'
+import { UserEntity } from '~/data/entities/User'
+import UserRepository from '~/data/repository/UserRepository'
 
 type UseResult = {
   data: UserEntity[]

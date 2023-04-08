@@ -1,4 +1,10 @@
-import { IconHome, IconSettings } from '@tabler/icons'
+import {
+  IconApps,
+  IconHome,
+  IconServerCog,
+  IconSettings,
+  IconUsers,
+} from '@tabler/icons-react'
 import React from 'react'
 
 interface LinkProps {
@@ -26,13 +32,19 @@ function useMenuSidebar() {
       label: 'Settings',
       links: [
         {
-          icon: <IconSettings size={16} />,
+          icon: <IconApps size={16} />,
+          color: 'grape',
+          label: 'App',
+          link: '/admin/settings/app',
+        },
+        {
+          icon: <IconUsers size={16} />,
           color: 'grape',
           label: 'Account',
           link: '/admin/settings/account',
         },
         {
-          icon: <IconSettings size={16} />,
+          icon: <IconServerCog size={16} />,
           color: 'grape',
           label: 'Master Data',
           link: '/admin/settings/master',

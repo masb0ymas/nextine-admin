@@ -1,4 +1,4 @@
-import { LoginAttributes } from 'data/entities/User'
+import { LoginAttributes } from '~/data/entities/User'
 import BaseRepository from './BaseRepository'
 
 const repo = new BaseRepository({ endpoint: '/auth' })

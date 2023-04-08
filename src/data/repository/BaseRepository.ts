@@ -1,7 +1,8 @@
-import { BASE_API_URL } from '@core/constants/ConstBaseURL'
-import { AxiosInstance, AxiosResponse } from 'axios'
-import { LOCAL_STORAGE_SESSION } from 'config/env'
-import FetchApi from 'config/Fetcher'
+import { AxiosInstance, AxiosResponse } from "axios"
+import FetchApi from "~/config/Fetcher"
+import { LOCAL_STORAGE_SESSION } from "~/config/env"
+import { BASE_API_URL } from "~/core/constants/ConstBaseURL"
+
 
 const Fetcher = new FetchApi(BASE_API_URL, LOCAL_STORAGE_SESSION)
 
