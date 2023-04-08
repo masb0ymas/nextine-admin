@@ -13,4 +13,5 @@ module.exports = withBundleAnalyzer({
     AXIOS_TIMEOUT: process.env.AXIOS_TIMEOUT,
     LOCAL_STORAGE_SESSION: process.env.LOCAL_STORAGE_SESSION,
   },
+  output: 'standalone',
 })
