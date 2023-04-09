@@ -145,6 +145,7 @@ function UserFooter() {
             <Menu.Item
               aria-label="profile"
               icon={<IconUser size={16} stroke={1.5} />}
+              onClick={() => Router.push('/admin/profile')}
             >
               Profile
             </Menu.Item>
