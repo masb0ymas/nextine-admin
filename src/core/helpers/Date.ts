@@ -18,5 +18,5 @@ export const formatDate = (date: Date | number | string): string => {
  * @returns
  */
 export const formatDateTime = (date: Date | number | string): string => {
-  return format(new Date(date), 'dd-MM-yyyy HH:mm:ss', TZ_ID)
+  return format(new Date(date), 'dd MMMM yyyy HH:mm:ss', TZ_ID)
 }
