@@ -25,6 +25,16 @@ const create = createPassword
   })
   .required()
 
-const userSchema = { createPassword, create }
+const update = yup
+  .object({
+    fullname: yup.string().required('full name is required'),
+    email: yup.string().email('invalid email').required('email is required'),
+    phone: yup.string().nullable(),
+    UploadId: yup.string().nullable(),
+    fileUpload: yup.string().nullable(),
+  })
+  .required()
+
+const userSchema = { createPassword, create, update }
 
 export default userSchema
