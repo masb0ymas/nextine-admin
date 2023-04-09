@@ -8,6 +8,11 @@ const routes = [
     layout: AdminContainer,
     exact: true,
   },
+  {
+    path: '/admin/profile',
+    layout: AdminContainer,
+    exact: true,
+  },
 ]
 
 const dashboardRoutes = routes

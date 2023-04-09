@@ -1,5 +1,6 @@
 import {
   Button,
+  Center,
   Checkbox,
   Divider,
   Grid,
@@ -88,7 +89,7 @@ function AccountUserTab() {
       accessor: 'fullname',
       title: 'Fullname',
       textAlignment: 'center',
-      width: 300,
+      width: 250,
       ellipsis: true,
     },
     {
@@ -109,28 +110,35 @@ function AccountUserTab() {
       accessor: 'isActive',
       title: 'Active',
       textAlignment: 'center',
-      width: 100,
-      render: (info) => <Checkbox checked={info.isActive} />,
+      width: 80,
+      render: (info) => (
+        <Center>
+          <Checkbox checked={info.isActive} />
+        </Center>
+      ),
     },
     {
       accessor: 'isBlocked',
       title: 'Block',
       textAlignment: 'center',
-      width: 100,
-      render: (info) => <Checkbox checked={info.isBlocked} />,
+      width: 80,
+      render: (info) => (
+        <Center>
+          <Checkbox checked={info.isBlocked} />
+        </Center>
+      ),
     },
     {
       accessor: 'Role.name',
       title: 'Role',
       width: 150,
       textAlignment: 'center',
-      visibleMediaQuery: aboveXsMediaQuery,
     },
     {
       accessor: 'createdAt',
       title: 'Register At',
       textAlignment: 'center',
-      width: 180,
+      width: 220,
       render: (info) => info.createdAt && formatDateTime(info.createdAt),
     },
   ]

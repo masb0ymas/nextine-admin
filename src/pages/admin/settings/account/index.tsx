@@ -1,3 +1,3 @@
-import AccountPage from '~/views/Admin/Settings/Account'
+import SettingAccountPage from '~/views/Admin/Settings/Account'
 
-export default AccountPage
+export default SettingAccountPage
