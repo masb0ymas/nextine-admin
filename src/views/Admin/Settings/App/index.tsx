@@ -17,7 +17,7 @@ function SettingAppPage() {
     <Paper shadow="sm" p="xl" radius="md">
       <PageHeader title="Account" subTitle={subTitle} />
 
-      <Divider variant="dashed" />
+      <Divider variant="dashed" my="xs" />
 
       <Tabs
         keepMounted={false}
