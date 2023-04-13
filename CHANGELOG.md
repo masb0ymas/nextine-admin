@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/masb0ymas/nextine-admin/compare/v1.0.0...v1.1.0) (2023-04-13)
+
+
+### Features
+
+* add bg blue svg ([7aca530](https://github.com/masb0ymas/nextine-admin/commit/7aca5303bde26e6976542232f79110bde612e52a))
+* add profile page ([24c7ad8](https://github.com/masb0ymas/nextine-admin/commit/24c7ad84921b9fbf337e09bd3fd1ccf39ba231cb))
+
+
+### Bug Fixes
+
+* format date ([3821db5](https://github.com/masb0ymas/nextine-admin/commit/3821db5e2fb125a7fd0d93325df77911a59beb75))
+* login page ([e6b63f1](https://github.com/masb0ymas/nextine-admin/commit/e6b63f16643a475810d471f39245211b1dbe0b5f))
+* menu sidebar ([eafb9b3](https://github.com/masb0ymas/nextine-admin/commit/eafb9b3143c8d899b0666c2ac1a27b73d769b3bc))
+* setting page ([5bcb303](https://github.com/masb0ymas/nextine-admin/commit/5bcb303cbc277f8672189b20272a3a620b974c54))
+* tabs setting app ([f3ae5c5](https://github.com/masb0ymas/nextine-admin/commit/f3ae5c59f2edfa8523f29486426923ea9813c7ac))
+* user schema ([d26de00](https://github.com/masb0ymas/nextine-admin/commit/d26de00fc57cb7530ec7e163fcbab5f43ec9649f))
+
 ## 1.0.0 (2023-04-08)
 
 
