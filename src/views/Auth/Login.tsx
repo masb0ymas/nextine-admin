@@ -9,12 +9,14 @@ import {
   Text,
   TextInput,
   Title,
+  createStyles,
 } from '@mantine/core'
 import { useForm, yupResolver } from '@mantine/form'
 import { showNotification } from '@mantine/notifications'
 import { IconCheck, IconLockOpen, IconMail } from '@tabler/icons-react'
 import { useMutation } from '@tanstack/react-query'
 import _ from 'lodash'
+import Link from 'next/link'
 import Router from 'next/router'
 import { useState } from 'react'
 import { BRAND, LOCAL_STORAGE_SESSION } from '~/config/env'
@@ -25,7 +27,15 @@ import { LoginAttributes } from '~/data/entities/User'
 import AuthRepository from '~/data/repository/AuthRepository'
 import authSchema from '~/data/validation/auth'
 
+const useStyles = createStyles(() => ({
+  rootLink: {
+    fontWeight: 500,
+    textDecoration: 'none',
+  },
+}))
+
 function LoginPage() {
+  const { classes } = useStyles()
   const [visible, setVisible] = useState(false)
 
   const userAuth = useAuthSession()
@@ -89,17 +99,15 @@ function LoginPage() {
       </Title>
       <Text color="dimmed" size="sm" align="center" mt={5}>
         {`Do not have an account yet? `}
-        <Anchor<'a'>
-          href="#"
-          size="sm"
-          onClick={(event) => event.preventDefault()}
-        >
-          Create account
-        </Anchor>
+
+        <Link href="/register" className={classes.rootLink}>
+          <Anchor size="sm">Create account</Anchor>
+        </Link>
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <MyLoadingOverlay visible={visible} />
+
         <form onSubmit={form.onSubmit(onFormSubmit)}>
           <TextInput
             label="Email"
@@ -121,9 +129,9 @@ function LoginPage() {
           <Group position="apart" mt="md">
             <Checkbox label="Remember me" />
 
-            <Anchor href="/forgot-password" size="sm">
-              Forgot password?
-            </Anchor>
+            <Link href="/forgot-password" className={classes.rootLink}>
+              <Anchor size="sm">Forgot password?</Anchor>
+            </Link>
           </Group>
 
           <Button fullWidth mt="xl" type="submit" loading={visible}>
