@@ -8,12 +8,12 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core'
+import _ from 'lodash'
 import React from 'react'
-import { BRAND } from '~/config/env'
+import { BRAND, URL_ENV } from '~/config/env'
 import { ColorSchemeToggle } from '~/core/components/ColorSchemeToggle/ColorSchemeToggle'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const useStyles = createStyles((theme, _params, _getRef) => ({
+const useStyles = createStyles((theme) => ({
   version: {
     backgroundColor: theme.fn.lighten(
       theme.fn.variant({ variant: 'filled', color: theme.primaryColor })
@@ -22,6 +22,14 @@ const useStyles = createStyles((theme, _params, _getRef) => ({
     ),
     color: theme.white,
     fontWeight: 700,
+    fontFamily: 'Poppins',
+  },
+
+  devMode: {
+    backgroundColor: theme.colors.orange[5],
+    color: theme.white,
+    fontWeight: 700,
+    fontFamily: 'Poppins',
   },
 
   inner: {
@@ -56,8 +64,13 @@ function AdminHeaderLayout(props: AdminHeaderLayoutProps) {
           />
         </MediaQuery>
 
-        <Group position="apart" spacing="lg">
+        <Group position="apart" spacing="sm">
           <Text style={{ fontSize: 22, fontWeight: 600 }}>{BRAND}</Text>
+
+          {URL_ENV !== 'production' && (
+            <Code className={classes.devMode}>{_.toUpper(URL_ENV)}</Code>
+          )}
+
           <Code className={classes.version}>v0.0.1</Code>
         </Group>
 
