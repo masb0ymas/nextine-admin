@@ -13,6 +13,12 @@ const createPassword = yup
   })
   .required()
 
+const changePassword = createPassword
+  .shape({
+    currentPassword: yup.string().min(8, 'at least 8 characters'),
+  })
+  .required()
+
 const create = createPassword
   .shape({
     fullname: yup.string().required('full name is required'),
@@ -35,6 +41,6 @@ const update = yup
   })
   .required()
 
-const userSchema = { createPassword, create, update }
+const userSchema = { createPassword, create, update, changePassword }
 
 export default userSchema

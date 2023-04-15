@@ -30,7 +30,7 @@ function MyTable<T>(props: MyTableEntity<T>) {
       accessor: 'actions',
       title: 'Actions',
       textAlignment: 'center',
-      width: 120,
+      width: 100,
       render: (info) => {
         const id = String(info.id)
 
@@ -56,7 +56,7 @@ function MyTable<T>(props: MyTableEntity<T>) {
             {/* Check Deleted */}
             {isDeleted && (
               <Tooltip
-                transitionProps={{ transition: 'pop', duration: 3000 }}
+                transitionProps={{ transition: 'pop', duration: 300 }}
                 label="Hapus"
               >
                 <ActionIcon
@@ -87,9 +87,9 @@ function MyTable<T>(props: MyTableEntity<T>) {
 
   return (
     <DataTable
+      withBorder
       minHeight={300}
-      withBorder={false}
-      borderRadius="sm"
+      borderRadius="md"
       withColumnBorders
       striped={false}
       highlightOnHover
