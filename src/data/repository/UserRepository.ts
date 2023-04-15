@@ -30,6 +30,17 @@ class UserRepository {
   /**
    *
    * @param id
+   * @param formData
+   * @returns
+   */
+  public static async changePassword(formData: any) {
+    const response = await repo.api.post(`/user/change-password`, formData)
+    return response
+  }
+
+  /**
+   *
+   * @param id
    * @returns
    */
   public static async restore(id: string) {
