@@ -15,7 +15,7 @@ function SettingAppPage() {
 
   return (
     <Paper shadow="sm" p="xl" radius="md">
-      <PageHeader title="Account" subTitle={subTitle} />
+      <PageHeader title="Application" subTitle={subTitle} />
 
       <Divider variant="dashed" my="xs" />
 

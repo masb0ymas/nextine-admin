@@ -100,8 +100,6 @@ function AccountRoleTab() {
         </Grid.Col>
       </Grid>
 
-      <Divider variant="dotted" />
-
       <MyTable<RoleEntity>
         baseURL={baseURL}
         columns={columns}

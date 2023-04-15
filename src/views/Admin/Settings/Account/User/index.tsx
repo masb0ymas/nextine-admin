@@ -165,8 +165,6 @@ function AccountUserTab() {
         </Grid.Col>
       </Grid>
 
-      <Divider variant="dotted" />
-
       <MyTable<UserEntity>
         baseURL={baseURL}
         columns={columns}
