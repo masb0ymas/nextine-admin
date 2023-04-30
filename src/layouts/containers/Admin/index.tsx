@@ -53,7 +53,7 @@ function AdminContainer(props: IProps) {
                 : theme.colors.gray[0],
           },
         }}
-        navbarOffsetBreakpoint="sm"
+        navbarOffsetBreakpoint={opened ? 'sm' : 2560}
         navbar={<AdminSidebarLayout opened={opened} />}
         header={<AdminHeaderLayout opened={opened} setOpened={setOpened} />}
         footer={<AdminFooterLayout />}

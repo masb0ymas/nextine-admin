@@ -54,10 +54,10 @@ function AdminHeaderLayout(props: AdminHeaderLayoutProps) {
   return (
     <Header height={70} p="md">
       <div className={classes.inner}>
-        <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+        <MediaQuery largerThan={2560} styles={{ display: 'none' }}>
           <Burger
             opened={opened}
-            onClick={() => setOpened((o) => !o)}
+            onClick={() => setOpened((isOpen) => !isOpen)}
             size="sm"
             color={theme.colors.gray[6]}
             mr="xl"
