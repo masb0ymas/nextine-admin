@@ -13,7 +13,7 @@ function AdminSidebarLayout(props: AdminSidebarLayoutProps) {
   return (
     <Navbar
       p="md"
-      hiddenBreakpoint="sm"
+      hiddenBreakpoint={2560}
       hidden={!opened}
       width={{ sm: 240, md: 260 }}
     >
